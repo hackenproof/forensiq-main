@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/google-fonts", "@vueuse/nuxt"],
 
-  css: ["~/assets/css/main.css", "~/assets/css/reset.css", "~/assets/css/global.css"],
+  css: ["~/assets/css/main.scss", "~/assets/css/reset.css", "~/assets/css/global.css"],
 
   runtimeConfig: {
     public: {
@@ -16,8 +16,6 @@ export default defineNuxtConfig({
     },
   },
 
-  // One rule per route, keyed off ROUTES, so redirects and cache rules can be
-  // added here as they are decided.
   routeRules: {
     [ROUTES.ROOT]: { prerender: true },
   },
