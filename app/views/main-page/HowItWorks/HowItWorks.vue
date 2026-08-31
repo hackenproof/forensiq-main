@@ -30,8 +30,7 @@ const LEAD =
 .section {
   @include shell;
 
-  padding-block: var(--FQ-section-py);
-  padding-top: var(--FQ-section-py-edge); /* Grey/95 band above */
+  padding-block: var(--FQ-section-py-edge) var(--FQ-section-py); /* Grey/95 band above */
 
   display: flex;
   flex-direction: column;

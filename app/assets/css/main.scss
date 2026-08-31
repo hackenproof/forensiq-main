@@ -16,8 +16,7 @@
 
   --FQ-content: 1124px;
   --FQ-gutter: 108px;
-  --FQ-cta-w: 544px;
-  --FQ-header-h: 73px; /* 16px padding-block + 40px button + 1px border, see Header.vue */
+  --FQ-header-h: 73px; /* 16px padding-block + 40px button + 1px border */
 
   --FQ-gap-hero: 80px;
   --FQ-section-py: 90px;
@@ -30,7 +29,7 @@
   --FQ-card-gap: 24px;
   --FQ-footer-py: 32px;
 
-  /* >=1920 — the only tier without a Figma frame; scaled from desktop */
+  /* no Figma frame at 1920 — scaled from desktop */
   @include wide {
     --FQ-content: 1440px;
     --FQ-gutter: 144px;
@@ -39,12 +38,11 @@
     --FQ-footer-py: 40px;
   }
 
-  /* 1140-1339 — desktop layout, gutter gives way before the content does */
   @include below(desktop) {
     --FQ-gutter: 64px;
   }
 
-  /* 960-1139 — tablet layout starts */
+  /* tablet layout starts */
   @include below(laptop) {
     --FQ-gutter: 72px;
     --FQ-gap-hero: 0px;
@@ -52,13 +50,12 @@
     --FQ-gap-title: 64px;
   }
 
-  /* 744-959 — Figma tablet frame */
   @include below(tablet-wide) {
     --FQ-gutter: 60px;
     --FQ-footer-py: 48px;
   }
 
-  /* 480-743 — mobile layout starts */
+  /* mobile layout starts */
   @include below(tablet) {
     --FQ-gutter: 32px;
     --FQ-section-py: 56px;
@@ -70,7 +67,6 @@
     --FQ-card-gap: 20px;
   }
 
-  /* <=479 — Figma mobile frame */
   @include below(phone-wide) {
     --FQ-gutter: 24px;
     --FQ-header-h: 61px; /* 12px padding-block + 36px button + 1px border */

@@ -10,7 +10,7 @@
 <script setup>
 defineProps({
   columns: { type: Number, required: true },
-  /* 960-1139; falls back to `tablet` */
+  /* 960-1139 */
   tabletWide: { type: Number, default: null },
   tablet: { type: Number, default: 2 },
 });

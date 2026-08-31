@@ -82,21 +82,15 @@ const errors = computed(() => {
 });
 
 const visibleErrors = computed(() =>
-  Object.fromEntries(
-    Object.entries(errors.value).filter(([name]) => touched[name] || submitted.value),
-  ),
+  Object.fromEntries(Object.entries(errors.value).filter(([name]) => touched[name])),
 );
 
 function onSubmit() {
-  submitted.value = true;
-
   for (const field of FIELDS) {
     touched[field.name] = true;
   }
 
-  if (Object.keys(errors.value).length) {
-    submitted.value = false;
-  }
+  submitted.value = Object.keys(errors.value).length === 0;
 }
 </script>
 
@@ -111,7 +105,7 @@ function onSubmit() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: var(--FQ-cta-w);
+  width: 544px;
   max-width: 100%;
   margin-inline: auto;
   gap: 56px;
@@ -130,7 +124,6 @@ function onSubmit() {
 }
 
 .title {
-  /* Figma breaks after "on"; balance reproduces it without a hard <br> */
   text-wrap: balance;
 
   color: var(--FQ-grey-22);

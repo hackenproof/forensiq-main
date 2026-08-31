@@ -59,7 +59,6 @@ import AUDIENCES from "./Audiences.data";
 }
 
 .eyebrow {
-  /* greedy wrapping orphans "CSIRT Teams" onto its own line at 322 */
   text-wrap: balance;
 
   color: var(--FQ-accent-1);
@@ -83,11 +82,9 @@ import AUDIENCES from "./Audiences.data";
 }
 
 .title {
-  /* Figma breaks after "intelligence"; greedy wrapping leaves an orphan "cases" */
   text-wrap: balance;
 
-  /* measured H2 width in the 322 frame (243), see design-spec/mobile.md.
-     It sets the Figma line breaks on its own; balance would move them. */
+  /* the 244px width sets the Figma line breaks on its own */
   @include below(phone-wide) {
     max-width: 244px;
     text-wrap: wrap;

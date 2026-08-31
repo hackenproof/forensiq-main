@@ -78,7 +78,6 @@ const invalid = computed(() => Boolean(props.error));
 
   &:hover {
     background-color: var(--FQ-grey-91);
-    border-color: var(--FQ-grey-85);
   }
 
   &:focus,
@@ -90,13 +89,8 @@ const invalid = computed(() => Boolean(props.error));
 }
 
 .invalid .input {
-  &,
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    background-color: var(--FQ-error-surface);
-    border-color: var(--FQ-error);
-  }
+  background-color: var(--FQ-error-surface);
+  border-color: var(--FQ-error);
 }
 
 .error {

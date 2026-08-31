@@ -95,7 +95,6 @@ import { MAP } from "@/constants/typography";
 }
 
 .title {
-  /* on ~390-480px phones greedy wrapping orphans "platform" onto its own line */
   text-wrap: balance;
 }
 
@@ -124,7 +123,6 @@ import { MAP } from "@/constants/typography";
 }
 
 .image {
-  display: block;
   width: 100%;
   height: auto;
 }

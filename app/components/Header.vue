@@ -40,7 +40,7 @@ const BRAND = "FORENSIQ";
   align-items: center;
   justify-content: space-between;
 
-  /* Figma says 17 (14 on mobile); the 4px grid gives 16 / 12 — header 73px, 61 on mobile. */
+  /* Figma says 17 / 14; the 4px grid gives 16 / 12 */
   padding-block: 16px;
 
   @include below(phone-wide) {
@@ -48,13 +48,7 @@ const BRAND = "FORENSIQ";
   }
 }
 
-.brand {
-  display: block;
-}
-
 .logo {
-  display: block;
-
   @include below(phone-wide) {
     width: auto;
     height: 26px;

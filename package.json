@@ -12,7 +12,6 @@
     "format:check": "npx --yes prettier@3.9.6 --ignore-path .prettierignore --ignore-path .git/info/exclude --check ."
   },
   "dependencies": {
-    "@vueuse/nuxt": "^14.4.0",
     "nuxt": "^4.5.2",
     "validator": "^13.15.35",
     "vue": "^3.5.41",

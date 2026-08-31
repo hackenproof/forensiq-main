@@ -1,12 +1,7 @@
 @use "sass:map";
 
-/*
- * Layout tiers, by min-width: phone 322, phone-wide 480, tablet 744,
- * tablet-wide 960, laptop 1140, desktop 1340, wide 1920.
- * `below(x)` = narrower than tier x, so each value is that tier's min - 1.
- * Ordered largest first — the cascade depends on it.
- * `wide` is the only min-width tier and has its own mixin.
- */
+/* `below(x)` = narrower than tier x, so each value is that tier's min - 1.
+   Keep it ordered largest first — the cascade depends on it. */
 $breakpoints: (
   desktop: 1339px,
   laptop: 1139px,

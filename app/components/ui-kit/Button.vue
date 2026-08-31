@@ -1,7 +1,8 @@
 <template>
   <component
-    :is="component"
-    v-bind="attrs"
+    :is="to ? 'a' : 'button'"
+    :href="to"
+    :type="to ? undefined : type"
     :class="[
       $style.button,
       $style[variant],
@@ -17,17 +18,13 @@
 <script setup>
 import { MAP } from "@/constants/typography";
 
-const props = defineProps({
+defineProps({
   to: { type: String, default: undefined },
   variant: { type: String, default: "primary" },
   large: { type: Boolean, default: false },
   fullwidth: { type: Boolean, default: false },
   type: { type: String, default: "button" },
 });
-
-const component = computed(() => (props.to ? "a" : "button"));
-
-const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type }));
 </script>
 
 <style module lang="scss">
@@ -35,7 +32,7 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* height is py * 2 + Label line-height (16px): 40 here, 52 when large, 36 in the header */
+  /* height = py * 2 + 16px Label line-height: 40, 52 large, 36 in the header */
   padding: 12px 20px;
   white-space: nowrap;
   transition:

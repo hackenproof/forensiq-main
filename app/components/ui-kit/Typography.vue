@@ -1,22 +1,14 @@
 <template>
-  <component :is="as" :class="classObject">
+  <component :is="as" :class="['typography', type]">
     <slot />
   </component>
 </template>
 
 <script setup>
-import { FAMILIES } from "@/constants/typography";
-
-const props = defineProps({
+defineProps({
   type: { type: String, default: undefined },
   as: { type: String, default: "span" },
 });
-
-const classObject = computed(() => ({
-  typography: true,
-  ...(props.type ? { [props.type]: true } : {}),
-  mono: FAMILIES.MONO.includes(props.type),
-}));
 </script>
 
 <style lang="scss">
@@ -29,7 +21,7 @@ const classObject = computed(() => ({
   letter-spacing: 0;
 }
 
-.mono {
+.FQ-Label {
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 }
 

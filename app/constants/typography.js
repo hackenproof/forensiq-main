@@ -7,7 +7,3 @@ export const MAP = {
   P2: "FQ-P2",
   P3: "FQ-P3",
 };
-
-export const FAMILIES = {
-  MONO: [MAP.LABEL],
-};
