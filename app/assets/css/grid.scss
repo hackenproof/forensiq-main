@@ -1,5 +1,32 @@
+@use "sass:map";
+
+/* `below(x)` = narrower than tier x, so each value is that tier's min - 1.
+   Keep it ordered largest first — the cascade depends on it. */
+$breakpoints: (
+  desktop: 1339px,
+  laptop: 1139px,
+  tablet-wide: 959px,
+  tablet: 743px,
+  phone-wide: 479px,
+);
+
+$wide: 1920px;
+
 @mixin shell {
   width: 100%;
-  max-width: var(--FQ-content);
+  max-width: calc(var(--FQ-content) + 2 * var(--FQ-gutter));
   margin-inline: auto;
+  padding-inline: var(--FQ-gutter);
+}
+
+@mixin below($name) {
+  @media (max-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: $wide) {
+    @content;
+  }
 }

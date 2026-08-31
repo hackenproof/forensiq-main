@@ -2,11 +2,9 @@
   <section id="request-demo" :class="$style.section">
     <div :class="$style.column">
       <div :class="$style.intro">
-        <div :class="$style.titleBox">
-          <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
-            See ForensIQ on Your Own Caseload
-          </UiKitTypography>
-        </div>
+        <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
+          See ForensIQ on Your Own Caseload
+        </UiKitTypography>
 
         <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">
           Whether you're standing up a procurement evaluation or piloting a tool with your IR team,
@@ -27,7 +25,7 @@
           @blur="touched[field.name] = true"
         />
 
-        <UiKitButton type="submit" fullwidth>Request demo</UiKitButton>
+        <UiKitButton type="submit" large :class="$style.submit">Contact us</UiKitButton>
 
         <UiKitTypography
           v-if="submitted"
@@ -84,21 +82,15 @@ const errors = computed(() => {
 });
 
 const visibleErrors = computed(() =>
-  Object.fromEntries(
-    Object.entries(errors.value).filter(([name]) => touched[name] || submitted.value),
-  ),
+  Object.fromEntries(Object.entries(errors.value).filter(([name]) => touched[name])),
 );
 
 function onSubmit() {
-  submitted.value = true;
-
   for (const field of FIELDS) {
     touched[field.name] = true;
   }
 
-  if (Object.keys(errors.value).length) {
-    submitted.value = false;
-  }
+  submitted.value = Object.keys(errors.value).length === 0;
 }
 </script>
 
@@ -106,34 +98,35 @@ function onSubmit() {
 .section {
   @include shell;
 
-  margin-top: var(--FQ-gap-section);
+  padding-block: var(--FQ-section-py);
 }
 
 .column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: var(--FQ-cta-w);
+  width: 544px;
   max-width: 100%;
   margin-inline: auto;
   gap: 56px;
+
+  @include below(tablet) {
+    gap: 32px;
+  }
 }
 
 .intro {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: var(--FQ-gap-intro);
   text-align: center;
 }
 
-.titleBox {
-  width: 400px;
-  max-width: 100%;
-}
-
 .title {
-  color: var(--FQ-ink-soft);
+  text-wrap: balance;
+
+  color: var(--FQ-grey-22);
 }
 
 .lead {
@@ -143,8 +136,23 @@ function onSubmit() {
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
   width: 100%;
+}
+
+.form > :not(.submit) {
+  width: 100%;
+}
+
+.form .submit {
+  margin-top: 44px;
+
+  @include below(tablet) {
+    width: 100%;
+    padding-block: 12px;
+    margin-top: 20px;
+  }
 }
 
 .notice {

@@ -1,29 +1,23 @@
 <template>
   <div :class="$style.page">
-    <div :class="$style.shell">
-      <Hero />
-    </div>
-
-    <div :class="[$style.shell, $style.body]">
-      <Correlations />
-      <CoreCapabilities />
-    </div>
-
-    <div :class="$style.shell">
-      <RequestDemo />
-    </div>
+    <Hero />
+    <Audiences />
+    <HowItWorks />
+    <CoreCapabilities />
+    <RequestDemo />
   </div>
 </template>
 
 <script setup>
 import Hero from "@/views/main-page/Hero.vue";
-import Correlations from "@/views/main-page/Correlations/Correlations.vue";
+import Audiences from "@/views/main-page/Audiences/Audiences.vue";
+import HowItWorks from "@/views/main-page/HowItWorks/HowItWorks.vue";
 import CoreCapabilities from "@/views/main-page/CoreCapabilities/CoreCapabilities.vue";
 import RequestDemo from "@/views/main-page/RequestDemo.vue";
 
-const TITLE = "ForensIQ — one platform to analyse all evidence";
+const TITLE = "ForensIQ — AI-native investigation platform";
 const DESCRIPTION =
-  "Consolidate digital evidence and blockchain intelligence in a single platform. From raw data to connected insight.";
+  "ForensIQ connects files, devices, logs, and blockchain activity so your team investigates faster.";
 
 const { siteUrl } = useRuntimeConfig().public;
 const canonical = siteUrl || undefined;
@@ -49,14 +43,10 @@ useHead({
 .page {
   display: flex;
   flex-direction: column;
-  padding-bottom: var(--FQ-gap-footer);
-}
+  padding-bottom: var(--FQ-gap-page-end);
 
-.shell {
-  @include shell;
-}
-
-.body {
-  margin-top: var(--FQ-gap-hero);
+  > :nth-child(2) {
+    margin-top: var(--FQ-gap-hero);
+  }
 }
 </style>

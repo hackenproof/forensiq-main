@@ -2,13 +2,17 @@
   <header :class="$style.header">
     <div :class="$style.inner">
       <NuxtLink :to="ROUTES.ROOT" :class="$style.brand" :aria-label="BRAND">
-        <img src="~/assets/images/shared/logo-forensiq.svg" :alt="BRAND" width="135" height="21" />
+        <img
+          :class="$style.logo"
+          src="~/assets/images/shared/logo-forensiq.svg"
+          alt=""
+          width="140"
+          height="32"
+        />
       </NuxtLink>
 
       <nav :aria-label="`${BRAND} primary`">
-        <UiKitButton :to="CTA.to">
-          {{ CTA.label }}
-        </UiKitButton>
+        <UiKitButton :to="ROUTES.REQUEST_DEMO" :class="$style.cta">Request demo</UiKitButton>
       </nav>
     </div>
   </header>
@@ -18,7 +22,6 @@
 import ROUTES from "@/constants/routes";
 
 const BRAND = "FORENSIQ";
-const CTA = { label: "Request demo", to: ROUTES.REQUEST_DEMO };
 </script>
 
 <style module lang="scss">
@@ -26,31 +29,35 @@ const CTA = { label: "Request demo", to: ROUTES.REQUEST_DEMO };
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: var(--FQ-paper);
-  border-bottom: 1px solid var(--FQ-border-strong);
+  background-color: var(--FQ-grey-91);
+  border-bottom: 1px solid var(--FQ-grey-85);
 }
 
 .inner {
+  @include shell;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: var(--FQ-header-w);
-  height: calc(var(--FQ-header-h) - 1px);
-  margin-inline: auto;
-  padding-inline: var(--FQ-gutter);
+
+  /* Figma says 17 / 14; the 4px grid gives 16 / 12 */
+  padding-block: 16px;
+
+  @include below(phone-wide) {
+    padding-block: 12px;
+  }
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 153px;
-  height: 32px;
+.logo {
+  @include below(phone-wide) {
+    width: auto;
+    height: 26px;
+  }
 }
 
-.brand img {
-  width: 135px;
-  height: 21px;
+.header .cta {
+  @include below(phone-wide) {
+    padding: 10px 16px;
+  }
 }
 </style>
