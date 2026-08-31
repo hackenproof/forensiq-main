@@ -2,7 +2,9 @@
   <section :class="$style.hero">
     <div :class="$style.copy">
       <div :class="$style.text">
-        <UiKitTypography :type="MAP.H1" as="h1">AI-native investigation platform</UiKitTypography>
+        <UiKitTypography :type="MAP.H1" as="h1" :class="$style.title">
+          AI-native investigation platform
+        </UiKitTypography>
 
         <UiKitTypography :type="MAP.P3" as="p" :class="$style.lead">
           ForensIQ connects files, devices, logs, and blockchain activity so your team investigates
@@ -43,14 +45,19 @@ import { MAP } from "@/constants/typography";
   gap: 40px;
   padding-block: 100px;
 
-  @include below(tablet) {
+  @include below(laptop) {
     flex-direction: column;
     align-items: center;
     gap: 64px;
     padding-block: 32px 100px;
   }
 
-  @include below(mobile) {
+  @include below(tablet) {
+    gap: 40px;
+    padding-block: 32px 64px;
+  }
+
+  @include below(phone-wide) {
     gap: 28px;
     padding-block: 24px;
   }
@@ -68,15 +75,28 @@ import { MAP } from "@/constants/typography";
   width: 480px;
   max-width: 100%;
 
-  @include below(tablet) {
+  @include wide {
+    width: 620px;
+  }
+
+  @include below(laptop) {
     align-items: center;
     gap: 64px;
     text-align: center;
   }
 
-  @include below(mobile) {
+  @include below(tablet) {
+    gap: 40px;
+  }
+
+  @include below(phone-wide) {
     gap: 24px;
   }
+}
+
+.title {
+  /* on ~390-480px phones greedy wrapping orphans "platform" onto its own line */
+  text-wrap: balance;
 }
 
 .lead {
@@ -87,7 +107,7 @@ import { MAP } from "@/constants/typography";
   display: flex;
   gap: 16px;
 
-  @include below(mobile) {
+  @include below(phone-wide) {
     flex-direction: column;
     width: 100%;
   }
@@ -97,6 +117,10 @@ import { MAP } from "@/constants/typography";
   flex: none;
   width: 506px;
   max-width: 100%;
+
+  @include wide {
+    width: 656px;
+  }
 }
 
 .image {

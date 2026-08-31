@@ -28,24 +28,58 @@
   --FQ-band-py: 90px;
   --FQ-card-p: 32px;
   --FQ-card-gap: 24px;
+  --FQ-footer-py: 32px;
 
-  @include below(tablet) {
-    --FQ-gutter: 60px;
+  /* >=1920 — the only tier without a Figma frame; scaled from desktop */
+  @include wide {
+    --FQ-content: 1440px;
+    --FQ-gutter: 144px;
+    --FQ-card-p: 40px;
+    --FQ-card-gap: 32px;
+    --FQ-footer-py: 40px;
+  }
+
+  /* 1140-1339 — desktop layout, gutter gives way before the content does */
+  @include below(desktop) {
+    --FQ-gutter: 64px;
+  }
+
+  /* 960-1139 — tablet layout starts */
+  @include below(laptop) {
+    --FQ-gutter: 72px;
     --FQ-gap-hero: 0px;
     --FQ-gap-page-end: 0px;
     --FQ-gap-title: 64px;
   }
 
-  @include below(mobile) {
+  /* 744-959 — Figma tablet frame */
+  @include below(tablet-wide) {
+    --FQ-gutter: 60px;
+    --FQ-footer-py: 48px;
+  }
+
+  /* 480-743 — mobile layout starts */
+  @include below(tablet) {
+    --FQ-gutter: 32px;
+    --FQ-section-py: 56px;
+    --FQ-section-py-edge: 112px;
+    --FQ-gap-title: 48px;
+    --FQ-gap-intro: 20px;
+    --FQ-band-py: 80px;
+    --FQ-card-p: 28px;
+    --FQ-card-gap: 20px;
+  }
+
+  /* <=479 — Figma mobile frame */
+  @include below(phone-wide) {
     --FQ-gutter: 24px;
     --FQ-header-h: 61px; /* 12px padding-block + 36px button + 1px border */
     --FQ-section-py: 40px;
     --FQ-section-py-edge: 80px;
-    --FQ-gap-page-end: 0px;
     --FQ-gap-title: 36px;
     --FQ-gap-intro: 16px;
-    --FQ-band-py: 80px;
     --FQ-card-p: 24px;
     --FQ-card-gap: 16px;
+    --FQ-footer-py: 40px;
   }
 }

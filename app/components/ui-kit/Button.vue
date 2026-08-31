@@ -35,13 +35,12 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding-inline: 20px;
-  border: 1px solid transparent;
+  /* height is py * 2 + Label line-height (16px): 40 here, 52 when large, 36 in the header */
+  padding: 12px 20px;
   white-space: nowrap;
   transition:
     background-color 160ms ease,
-    border-color 160ms ease;
+    box-shadow 160ms ease;
 
   span {
     transition: color 160ms ease;
@@ -58,7 +57,7 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
   &:hover,
   &:focus-visible {
     background-color: var(--FQ-white);
-    border-color: var(--FQ-primary);
+    box-shadow: inset 0 0 0 1px var(--FQ-primary);
 
     span {
       color: var(--FQ-primary);
@@ -68,7 +67,8 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
 
 .secondary {
   background-color: var(--FQ-grey-95);
-  border-color: var(--FQ-grey-91);
+  /* inset, like a Figma stroke — a real border would widen the button by 2px */
+  box-shadow: inset 0 0 0 1px var(--FQ-grey-91);
 
   span {
     color: var(--FQ-primary);
@@ -76,13 +76,12 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
 
   &:hover,
   &:focus-visible {
-    border-color: var(--FQ-primary);
+    box-shadow: inset 0 0 0 1px var(--FQ-primary);
   }
 }
 
 .large {
-  height: 52px;
-  padding-inline: 28px;
+  padding: 18px 28px;
 }
 
 .fullwidth {

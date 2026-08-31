@@ -43,7 +43,7 @@ const BRAND = "FORENSIQ";
   /* Figma says 17 (14 on mobile); the 4px grid gives 16 / 12 — header 73px, 61 on mobile. */
   padding-block: 16px;
 
-  @include below(mobile) {
+  @include below(phone-wide) {
     padding-block: 12px;
   }
 }
@@ -55,15 +55,15 @@ const BRAND = "FORENSIQ";
 .logo {
   display: block;
 
-  @include below(mobile) {
+  @include below(phone-wide) {
     width: auto;
     height: 26px;
   }
 }
 
 .header .cta {
-  @include below(mobile) {
-    height: 36px;
+  @include below(phone-wide) {
+    padding: 10px 16px;
   }
 }
 </style>

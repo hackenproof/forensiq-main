@@ -1,5 +1,8 @@
 <template>
-  <ul :class="$style.grid" :style="{ '--desktop': columns, '--tablet': tablet }">
+  <ul
+    :class="$style.grid"
+    :style="{ '--desktop': columns, '--tablet-wide': tabletWide ?? tablet, '--tablet': tablet }"
+  >
     <slot />
   </ul>
 </template>
@@ -7,6 +10,8 @@
 <script setup>
 defineProps({
   columns: { type: Number, required: true },
+  /* 960-1139; falls back to `tablet` */
+  tabletWide: { type: Number, default: null },
   tablet: { type: Number, default: 2 },
 });
 </script>
@@ -22,11 +27,15 @@ defineProps({
   padding: 1px;
   background-color: var(--FQ-grey-85);
 
-  @include below(tablet) {
+  @include below(laptop) {
+    --columns: var(--tablet-wide);
+  }
+
+  @include below(tablet-wide) {
     --columns: var(--tablet);
   }
 
-  @include below(mobile) {
+  @include below(tablet) {
     --columns: 1;
   }
 }

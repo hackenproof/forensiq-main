@@ -38,7 +38,7 @@ const LEAD =
   align-items: center;
   gap: var(--FQ-gap-title);
 
-  @include below(mobile) {
+  @include below(tablet) {
     padding-inline: 0;
   }
 }
@@ -51,7 +51,7 @@ const LEAD =
   gap: var(--FQ-gap-intro);
   text-align: center;
 
-  @include below(mobile) {
+  @include below(tablet) {
     padding-inline: var(--FQ-gutter);
   }
 }
@@ -64,11 +64,11 @@ const LEAD =
 .cta {
   display: none;
 
-  @include below(tablet) {
+  @include below(laptop) {
     display: inline-flex;
   }
 
-  @include below(mobile) {
+  @include below(tablet) {
     align-self: stretch;
     margin-inline: var(--FQ-gutter);
   }

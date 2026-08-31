@@ -1,7 +1,9 @@
 <template>
   <footer :class="$style.footer">
     <div :class="$style.inner">
-      <UiKitTypography :type="MAP.LABEL" as="p">{{ COPYRIGHT }}</UiKitTypography>
+      <UiKitTypography :class="$style.copyright" :type="MAP.LABEL" as="p">{{
+        COPYRIGHT
+      }}</UiKitTypography>
 
       <ul :class="$style.links">
         <li v-for="link in LINKS" :key="link.label">
@@ -40,19 +42,35 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  padding-block: var(--FQ-footer-py);
 
-  @include below(mobile) {
-    flex-direction: column;
-    gap: 16px;
-    height: auto;
-    padding-block: 24px;
+  /* links above the copyright, without reordering the DOM */
+  @include below(tablet-wide) {
+    flex-direction: column-reverse;
+    gap: 12px;
+    text-align: center;
   }
 }
 
 .links {
   display: flex;
   gap: 32px;
+
+  @include below(tablet-wide) {
+    gap: 24px;
+  }
+}
+
+.links li {
+  @include below(tablet-wide) {
+    padding-block: 6px;
+  }
+}
+
+.copyright {
+  @include below(tablet-wide) {
+    text-wrap: balance;
+  }
 }
 
 .link span {

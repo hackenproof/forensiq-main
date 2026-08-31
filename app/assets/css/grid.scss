@@ -1,9 +1,21 @@
 @use "sass:map";
 
+/*
+ * Layout tiers, by min-width: phone 322, phone-wide 480, tablet 744,
+ * tablet-wide 960, laptop 1140, desktop 1340, wide 1920.
+ * `below(x)` = narrower than tier x, so each value is that tier's min - 1.
+ * Ordered largest first — the cascade depends on it.
+ * `wide` is the only min-width tier and has its own mixin.
+ */
 $breakpoints: (
-  tablet: 1279px,
-  mobile: 639px,
+  desktop: 1339px,
+  laptop: 1139px,
+  tablet-wide: 959px,
+  tablet: 743px,
+  phone-wide: 479px,
 );
+
+$wide: 1920px;
 
 @mixin shell {
   width: 100%;
@@ -14,6 +26,12 @@ $breakpoints: (
 
 @mixin below($name) {
   @media (max-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: $wide) {
     @content;
   }
 }

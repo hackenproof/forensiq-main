@@ -42,12 +42,16 @@ $fq-styles: (
   ),
   "H1": (
     desktop: 64px 68px,
-    mobile: 30px 40px,
+    wide: 72px 76px,
+    tablet: 40px 48px,
+    phone-wide: 30px 40px,
     weight: 500,
   ),
   "H2": (
     desktop: 40px 48px,
-    mobile: 24px 32px,
+    wide: 44px 52px,
+    tablet: 30px 38px,
+    phone-wide: 24px 32px,
     weight: 500,
   ),
   "H3": (
@@ -64,7 +68,8 @@ $fq-styles: (
   ),
   "P3": (
     desktop: 18px 30px,
-    mobile: 14px 26px,
+    tablet: 16px 28px,
+    phone-wide: 14px 26px,
     weight: 400,
   ),
 );
@@ -86,6 +91,12 @@ $fq-styles: (
 
     @if map.has-key($style, transform) {
       text-transform: map.get($style, transform);
+    }
+
+    @if map.has-key($style, wide) {
+      @include wide {
+        @include size(map.get($style, wide));
+      }
     }
 
     @each $bp, $width in $breakpoints {

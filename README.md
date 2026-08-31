@@ -60,17 +60,20 @@ never repeat that markup inline.
 - `grid.scss` **is auto-injected** into every `<style lang="scss">` block via
   `vite.css.preprocessorOptions`. Use `@include shell;` for the content column
   (1124px plus the gutter); never `@use` or `@import` it in a component.
-- **Three layouts, no raw media queries.** Breakpoints live in `grid.scss`
-  (`tablet: 1279px`, `mobile: 639px`, max-width); use `@include below(tablet)` /
-  `@include below(mobile)`. Layout tokens (gutter, gaps, card padding) switch per
-  breakpoint in `main.scss`; text sizes switch per breakpoint inside
-  `Typography.vue`, so sections never resize type themselves.
+- **Seven layout tiers, no raw media queries.** Tiers by min-width: phone 322,
+  phone-wide 480, tablet 744, tablet-wide 960, laptop 1140, desktop 1340, wide 1920.
+  `grid.scss` holds them as max-width caps (`below(x)` = narrower than tier x, so each
+  value is that tier's min minus 1) plus `@include wide` for the one min-width tier.
+  Layout tokens (gutter, gaps, card padding) switch per tier in `main.scss`; text sizes
+  switch per tier inside `Typography.vue`, so sections never resize type themselves.
+  `CardGrid` has a column count per tier: `columns` (≥1140), `tabletWide` (960–1139,
+  falls back to `tablet`), `tablet` (744–959), one column below 744.
 - **Colours and layout constants are** `--FQ-`* **custom properties** in `main.scss`,
   named after the design variables (`--FQ-grey-95`, `--FQ-primary`, `--FQ-accent-1`).
   Use the tokens, do not paste hex values into components.
 - **Never set** `font-size`**,** `font-weight` **or** `line-height` **directly.** Wrap text
   in `<UiKitTypography>` and pass a style from `constants/typography.js`
-  (`H1 H2 H3 P1 P2 P3 Label`; `P3` is a `P1` that shrinks on mobile). `Input.vue`
+  (`H1 H2 H3 P1 P2 P3 Label`; `P3` is a `P1` that shrinks on the small tiers). `Input.vue`
   is the one exception: a native `<input>` cannot be wrapped.
 - **Border radius is** `0` everywhere by design.
 - **All link targets live in** `constants/routes.js`**.** No hardcoded paths in

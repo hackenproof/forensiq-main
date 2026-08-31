@@ -15,7 +15,7 @@
         </UiKitTypography>
       </div>
 
-      <CardGrid :columns="audience.cards.length" :tablet="1">
+      <CardGrid :columns="audience.cards.length" :tablet-wide="2" :tablet="1">
         <li v-for="card in audience.cards" :key="card.label">
           <Card :label="card.label">{{ card.body }}</Card>
         </li>
@@ -40,7 +40,7 @@ import AUDIENCES from "./Audiences.data";
 
 /* the two bands read as one Grey/95 surface: no doubled padding at the join */
 .band + .band {
-  @include below(mobile) {
+  @include below(tablet) {
     padding-top: 0;
   }
 }
@@ -53,12 +53,15 @@ import AUDIENCES from "./Audiences.data";
   align-items: center;
   gap: 64px;
 
-  @include below(mobile) {
+  @include below(tablet) {
     gap: 36px;
   }
 }
 
 .eyebrow {
+  /* greedy wrapping orphans "CSIRT Teams" onto its own line at 322 */
+  text-wrap: balance;
+
   color: var(--FQ-accent-1);
 }
 
@@ -72,6 +75,7 @@ import AUDIENCES from "./Audiences.data";
 
 .intro {
   gap: var(--FQ-gap-intro);
+  max-width: 604px;
 }
 
 .heading {
@@ -79,18 +83,23 @@ import AUDIENCES from "./Audiences.data";
 }
 
 .title {
-  @include below(mobile) {
+  /* Figma breaks after "intelligence"; greedy wrapping leaves an orphan "cases" */
+  text-wrap: balance;
+
+  /* measured H2 width in the 322 frame (243), see design-spec/mobile.md.
+     It sets the Figma line breaks on its own; balance would move them. */
+  @include below(phone-wide) {
     max-width: 244px;
+    text-wrap: wrap;
   }
 }
 
 .lead {
-  max-width: 604px;
   color: var(--FQ-text-muted);
 }
 
 .cta {
-  @include below(mobile) {
+  @include below(phone-wide) {
     width: 100%;
   }
 }

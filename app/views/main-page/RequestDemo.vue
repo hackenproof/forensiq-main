@@ -3,7 +3,7 @@
     <div :class="$style.column">
       <div :class="$style.intro">
         <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
-          See ForensIQ on<br />Your Own Caseload
+          See ForensIQ on Your Own Caseload
         </UiKitTypography>
 
         <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">
@@ -116,7 +116,7 @@ function onSubmit() {
   margin-inline: auto;
   gap: 56px;
 
-  @include below(mobile) {
+  @include below(tablet) {
     gap: 32px;
   }
 }
@@ -130,6 +130,9 @@ function onSubmit() {
 }
 
 .title {
+  /* Figma breaks after "on"; balance reproduces it without a hard <br> */
+  text-wrap: balance;
+
   color: var(--FQ-grey-22);
 }
 
@@ -152,9 +155,9 @@ function onSubmit() {
 .form .submit {
   margin-top: 44px;
 
-  @include below(mobile) {
+  @include below(tablet) {
     width: 100%;
-    height: 40px;
+    padding-block: 12px;
     margin-top: 20px;
   }
 }
