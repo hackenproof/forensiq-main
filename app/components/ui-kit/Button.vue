@@ -2,7 +2,11 @@
   <component
     :is="component"
     v-bind="attrs"
-    :class="[$style.button, { [$style.fullwidth]: fullwidth }]"
+    :class="[
+      $style.button,
+      $style[variant],
+      { [$style.large]: large, [$style.fullwidth]: fullwidth },
+    ]"
   >
     <UiKitTypography :type="MAP.LABEL">
       <slot />
@@ -15,6 +19,8 @@ import { MAP } from "@/constants/typography";
 
 const props = defineProps({
   to: { type: String, default: undefined },
+  variant: { type: String, default: "primary" },
+  large: { type: Boolean, default: false },
   fullwidth: { type: Boolean, default: false },
   type: { type: String, default: "button" },
 });
@@ -31,7 +37,6 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
   justify-content: center;
   height: 40px;
   padding-inline: 20px;
-  background-color: var(--FQ-ink);
   border: 1px solid transparent;
   white-space: nowrap;
   transition:
@@ -39,19 +44,45 @@ const attrs = computed(() => (props.to ? { href: props.to } : { type: props.type
     border-color 160ms ease;
 
   span {
-    color: var(--FQ-on-dark);
     transition: color 160ms ease;
+  }
+}
+
+.primary {
+  background-color: var(--FQ-primary);
+
+  span {
+    color: var(--FQ-on-dark);
   }
 
   &:hover,
   &:focus-visible {
-    background-color: var(--FQ-surface-active);
-    border-color: var(--FQ-ink);
+    background-color: var(--FQ-white);
+    border-color: var(--FQ-primary);
 
     span {
-      color: var(--FQ-ink);
+      color: var(--FQ-primary);
     }
   }
+}
+
+.secondary {
+  background-color: var(--FQ-grey-95);
+  border-color: var(--FQ-grey-91);
+
+  span {
+    color: var(--FQ-primary);
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--FQ-primary);
+  }
+}
+
+.large {
+  height: 52px;
+  padding-inline: 28px;
 }
 
 .fullwidth {

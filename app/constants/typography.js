@@ -3,9 +3,9 @@ export const MAP = {
   H1: "FQ-H1",
   H2: "FQ-H2",
   H3: "FQ-H3",
-  H4: "FQ-H4",
   P1: "FQ-P1",
   P2: "FQ-P2",
+  P3: "FQ-P3",
 };
 
 export const FAMILIES = {

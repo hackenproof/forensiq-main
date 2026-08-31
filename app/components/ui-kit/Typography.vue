@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" :class="classObject">
+  <component :is="as" :class="classObject">
     <slot />
   </component>
 </template>
@@ -12,8 +12,6 @@ const props = defineProps({
   as: { type: String, default: "span" },
 });
 
-const tag = computed(() => props.as);
-
 const classObject = computed(() => ({
   typography: true,
   ...(props.type ? { [props.type]: true } : {}),
@@ -22,8 +20,11 @@ const classObject = computed(() => ({
 </script>
 
 <style lang="scss">
+@use "sass:map";
+@use "sass:list";
+
 .typography {
-  color: var(--FQ-ink);
+  color: var(--FQ-primary);
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0;
 }
@@ -33,27 +34,66 @@ const classObject = computed(() => ({
 }
 
 $fq-styles: (
-  "Label" 12px 16px 400 1.1px uppercase,
-  "H1" 64px 68px 500 null null,
-  "H2" 40px 48px 500 null null,
-  "H3" 18px 25px 500 null null,
-  "H4" 18px 25px 400 null null,
-  "P1" 18px 30px 400 null null,
-  "P2" 16px 28px 400 null null
+  "Label": (
+    desktop: 12px 16px,
+    weight: 400,
+    spacing: 1.1px,
+    transform: uppercase,
+  ),
+  "H1": (
+    desktop: 64px 68px,
+    mobile: 30px 40px,
+    weight: 500,
+  ),
+  "H2": (
+    desktop: 40px 48px,
+    mobile: 24px 32px,
+    weight: 500,
+  ),
+  "H3": (
+    desktop: 18px 25px,
+    weight: 500,
+  ),
+  "P1": (
+    desktop: 18px 30px,
+    weight: 400,
+  ),
+  "P2": (
+    desktop: 16px 28px,
+    weight: 400,
+  ),
+  "P3": (
+    desktop: 18px 30px,
+    mobile: 14px 26px,
+    weight: 400,
+  ),
 );
 
-@each $name, $size, $line-height, $weight, $letter-spacing, $transform in $fq-styles {
-  .FQ-#{$name} {
-    font-size: $size;
-    line-height: $line-height;
-    font-weight: $weight;
+@mixin size($pair) {
+  font-size: list.nth($pair, 1);
+  line-height: list.nth($pair, 2);
+}
 
-    @if $letter-spacing {
-      letter-spacing: $letter-spacing;
+@each $name, $style in $fq-styles {
+  .FQ-#{$name} {
+    @include size(map.get($style, desktop));
+
+    font-weight: map.get($style, weight);
+
+    @if map.has-key($style, spacing) {
+      letter-spacing: map.get($style, spacing);
     }
 
-    @if $transform {
-      text-transform: $transform;
+    @if map.has-key($style, transform) {
+      text-transform: map.get($style, transform);
+    }
+
+    @each $bp, $width in $breakpoints {
+      @if map.has-key($style, $bp) {
+        @include below($bp) {
+          @include size(map.get($style, $bp));
+        }
+      }
     }
   }
 }

@@ -46,7 +46,6 @@ const invalid = computed(() => Boolean(props.error));
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
   overflow: hidden;
   border: 0;
   clip-path: inset(50%);
@@ -58,11 +57,11 @@ const invalid = computed(() => Boolean(props.error));
   height: 58px;
   padding: 14px 18px;
   appearance: none;
-  background-color: var(--FQ-surface);
-  border: 1px solid var(--FQ-border-strong);
+  background-color: var(--FQ-grey-95);
+  border: 1px solid var(--FQ-grey-85);
   border-radius: 0;
-  color: var(--FQ-value);
-  caret-color: var(--FQ-value);
+  color: var(--FQ-primary);
+  caret-color: var(--FQ-primary);
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -78,15 +77,14 @@ const invalid = computed(() => Boolean(props.error));
   }
 
   &:hover {
-    background-color: var(--FQ-paper);
-    border-color: var(--FQ-border-strong);
+    background-color: var(--FQ-grey-91);
+    border-color: var(--FQ-grey-85);
   }
 
-  /* Figma has no focus ring: focus reads as white fill + darker border only. */
   &:focus,
   &:focus-visible {
-    background-color: var(--FQ-surface-active);
-    border-color: var(--FQ-marker);
+    background-color: var(--FQ-white);
+    border-color: var(--FQ-grey-65);
     outline: none;
   }
 }
