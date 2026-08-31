@@ -2,11 +2,9 @@
   <section id="request-demo" :class="$style.section">
     <div :class="$style.column">
       <div :class="$style.intro">
-        <div :class="$style.titleBox">
-          <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
-            See ForensIQ on Your Own Caseload
-          </UiKitTypography>
-        </div>
+        <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
+          See ForensIQ on<br />Your Own Caseload
+        </UiKitTypography>
 
         <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">
           Whether you're standing up a procurement evaluation or piloting a tool with your IR team,
@@ -27,7 +25,7 @@
           @blur="touched[field.name] = true"
         />
 
-        <UiKitButton type="submit" fullwidth>Request demo</UiKitButton>
+        <UiKitButton type="submit" large :class="$style.submit">Contact us</UiKitButton>
 
         <UiKitTypography
           v-if="submitted"
@@ -106,7 +104,7 @@ function onSubmit() {
 .section {
   @include shell;
 
-  margin-top: var(--FQ-gap-section);
+  padding-block: var(--FQ-section-py);
 }
 
 .column {
@@ -117,23 +115,22 @@ function onSubmit() {
   max-width: 100%;
   margin-inline: auto;
   gap: 56px;
+
+  @include below(mobile) {
+    gap: 32px;
+  }
 }
 
 .intro {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: var(--FQ-gap-intro);
   text-align: center;
 }
 
-.titleBox {
-  width: 400px;
-  max-width: 100%;
-}
-
 .title {
-  color: var(--FQ-ink-soft);
+  color: var(--FQ-grey-22);
 }
 
 .lead {
@@ -143,8 +140,23 @@ function onSubmit() {
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
   width: 100%;
+}
+
+.form > :not(.submit) {
+  width: 100%;
+}
+
+.form .submit {
+  margin-top: 44px;
+
+  @include below(mobile) {
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+  }
 }
 
 .notice {
