@@ -35,6 +35,9 @@ app/
   pages/             index.vue
   views/main-page/   Hero.vue, RequestDemo.vue, plus a folder per section
                      with copy: Audiences/, HowItWorks/, CoreCapabilities/
+server/api/          demo-request.post.js — the only server route
+server/plugins/      check-env.js — warns at boot about missing env
+server/utils/        mailer.js — which env vars the route needs
 ```
 
 Auto-imports are on and keep Nuxt's path prefix: `ui-kit/Button.vue` is
@@ -91,7 +94,9 @@ strings are `const`s in the component. A section with bulk copy gets a folder an
 
 ## Known gaps
 
-- The demo form validates client-side only and is not connected to a backend.
+- The demo form posts to a mailing list. Copy `.env.example` to `.env` and fill
+  it in; the server warns at boot about anything missing and the route answers 503 until it
+  is complete. `yarn generate` drops the route entirely — the static export has no server.
 - Core capabilities cards 5–6 reuse the "AI Investigator" illustration, and two
   audience cards share body text: the design has no final content there yet.
 - `public/og-default.png` (1200×630) is missing.
