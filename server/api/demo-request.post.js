@@ -1,5 +1,7 @@
 import isEmail from "validator/lib/isEmail.js";
 
+import { isValidTeamSize } from "../utils/team-size.js";
+
 // Only the status code ever reaches the client; the vendor and its errors stay server-side.
 const fail = (statusCode) => createError({ statusCode, statusMessage: "Request failed." });
 
@@ -11,8 +13,10 @@ export default defineEventHandler(async (event) => {
   const fullName = field("fullName");
   const workEmail = field("workEmail");
   const organisation = field("organisation");
+  const teamSize = field("teamSize");
 
-  if (!fullName || !organisation || !isEmail(workEmail)) throw fail(400);
+  if (!fullName || !organisation || !isEmail(workEmail) || !isValidTeamSize(teamSize))
+    throw fail(400);
 
   if (missingConfig(config).length) throw fail(503);
 
@@ -27,7 +31,7 @@ export default defineEventHandler(async (event) => {
             variables: {
               Name: fullName,
               Organisation: organisation,
-              "Team size": field("teamSize"),
+              "Team size": teamSize,
             },
           },
         ],
