@@ -42,6 +42,11 @@ defineProps({
   span {
     transition: color 160ms ease;
   }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
 }
 
 .primary {
