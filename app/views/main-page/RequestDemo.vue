@@ -1,18 +1,13 @@
 <template>
   <section id="request-demo" :class="$style.section">
-    <div :class="$style.column">
-      <div :class="$style.intro">
-        <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
-          See ForensIQ on Your Own Caseload
-        </UiKitTypography>
+    <SectionIntro
+      narrow
+      title="See ForensIQ on Your Own Caseload"
+      lead="Whether you're standing up a procurement evaluation or piloting a tool with your IR team, we'll set you up with a working environment — not a slide deck."
+    />
 
-        <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">
-          Whether you're standing up a procurement evaluation or piloting a tool with your IR team,
-          we'll set you up with a working environment — not a slide deck.
-        </UiKitTypography>
-      </div>
-
-      <form :class="$style.form" novalidate @submit.prevent="onSubmit">
+    <form :class="$style.form" novalidate @submit.prevent="onSubmit">
+      <div :class="$style.fields">
         <UiKitInput
           v-for="field in FIELDS"
           :key="field.name"
@@ -24,16 +19,16 @@
           :error="visibleErrors[field.name]"
           @blur="touched[field.name] = true"
         />
+      </div>
 
-        <UiKitButton type="submit" large :disabled="pending" :class="$style.submit">
-          {{ pending ? "Sending…" : "Contact us" }}
-        </UiKitButton>
+      <UiKitButton type="submit" large :disabled="pending" :class="$style.submit">
+        {{ pending ? "Sending…" : "Contact us" }}
+      </UiKitButton>
 
-        <UiKitTypography v-if="status" :type="MAP.P2" as="p" :class="$style.notice" role="status">
-          {{ status }}
-        </UiKitTypography>
-      </form>
-    </div>
+      <UiKitTypography v-if="status" :type="MAP.P2" as="p" :class="$style.notice" role="status">
+        {{ status }}
+      </UiKitTypography>
+    </form>
   </section>
 </template>
 
@@ -116,62 +111,64 @@ async function onSubmit() {
 
 <style module lang="scss">
 .section {
-  @include shell;
+  @include band;
 
-  padding-block: var(--FQ-section-py);
-}
+  // The frames hold 48 down to 760 here, where the bands drop to 40
+  row-gap: 48px;
+  background-color: var(--FQ-grey-95);
 
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 544px;
-  max-width: 100%;
-  margin-inline: auto;
-  gap: 56px;
+  @include below(w760) {
+    row-gap: var(--FQ-gap-block);
+  }
 
-  @include below(tablet) {
-    gap: 32px;
+  > * {
+    grid-column: content;
   }
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--FQ-gap-intro);
-  text-align: center;
-}
-
-.title {
-  text-wrap: balance;
-
-  color: var(--FQ-grey-22);
-}
-
-.lead {
-  color: var(--FQ-text-muted);
-}
-
 .form {
+  justify-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 40px;
+  width: 600px;
+  max-width: 100%;
+
+  @include wide {
+    width: 632px;
+  }
+
+  @include below(w1440) {
+    width: 548px;
+  }
+
+  @include below(w1200) {
+    width: 428px;
+  }
+
+  @include below(w960) {
+    width: 446px;
+  }
+
+  @include below(w760) {
+    width: 100%;
+  }
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   width: 100%;
 }
 
-.form > :not(.submit) {
-  width: 100%;
-}
+.submit {
+  min-width: 314px;
 
-.form .submit {
-  margin-top: 44px;
-
-  @include below(tablet) {
+  @include below(w760) {
+    min-width: 0;
     width: 100%;
-    padding-block: 12px;
-    margin-top: 20px;
   }
 }
 

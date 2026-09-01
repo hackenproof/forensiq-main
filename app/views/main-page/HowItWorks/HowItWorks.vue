@@ -1,25 +1,16 @@
 <template>
   <section id="how-it-works" :class="$style.section">
-    <div :class="$style.intro">
-      <UiKitTypography :type="MAP.H2" as="h2">How ForensIQ works</UiKitTypography>
-      <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">{{ LEAD }}</UiKitTypography>
-    </div>
+    <SectionIntro title="How ForensIQ works" :lead="LEAD" />
 
-    <CardGrid :columns="STEPS.length">
+    <CardGrid :columns="STEPS.length" :w960="2">
       <li v-for="step in STEPS" :key="step.label">
         <Card :label="step.label" :title="step.title" :icon="step.icon">{{ step.body }}</Card>
       </li>
     </CardGrid>
-
-    <UiKitButton :to="ROUTES.REQUEST_DEMO" :class="$style.cta"
-      >Join the Enterprise Beta</UiKitButton
-    >
   </section>
 </template>
 
 <script setup>
-import ROUTES from "@/constants/routes";
-import { MAP } from "@/constants/typography";
 import STEPS from "./HowItWorks.data";
 
 const LEAD =
@@ -28,48 +19,12 @@ const LEAD =
 
 <style module lang="scss">
 .section {
-  @include shell;
+  @include band;
 
-  padding-block: var(--FQ-section-py-edge) var(--FQ-section-py); /* Grey/95 band above */
+  row-gap: var(--FQ-gap-block);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--FQ-gap-title);
-
-  @include below(tablet) {
-    padding-inline: 0;
-  }
-}
-
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  align-items: center;
-  gap: var(--FQ-gap-intro);
-  text-align: center;
-
-  @include below(tablet) {
-    padding-inline: var(--FQ-gutter);
-  }
-}
-
-.lead {
-  max-width: 604px;
-  color: var(--FQ-text-muted);
-}
-
-.cta {
-  display: none;
-
-  @include below(laptop) {
-    display: inline-flex;
-  }
-
-  @include below(tablet) {
-    align-self: stretch;
-    margin-inline: var(--FQ-gutter);
+  > * {
+    grid-column: content;
   }
 }
 </style>
