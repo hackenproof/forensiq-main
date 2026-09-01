@@ -11,6 +11,10 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.scss", "~/assets/css/reset.css", "~/assets/css/global.css"],
 
   runtimeConfig: {
+    mailerApiUrl: "",
+    mailerApiKey: "",
+    mailerAddressBookId: "",
+
     public: {
       siteUrl: "",
     },
