@@ -1,9 +1,7 @@
 import isEmail from "validator/lib/isEmail.js";
 
-import { isValidTeamSize } from "../utils/team-size.js";
-
-// Only the status code ever reaches the client; the vendor and its errors stay server-side.
 const fail = (statusCode) => createError({ statusCode, statusMessage: "Request failed." });
+const isValidTeamSize = (value) => /^\d+$/.test(value) && Number(value) > 0 && Number(value) <= 100;
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);

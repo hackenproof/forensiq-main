@@ -24,18 +24,18 @@
       <UiKitButton type="submit" large :disabled="pending" :class="$style.submit">
         {{ pending ? "Sending…" : "Contact us" }}
       </UiKitButton>
-
-      <UiKitTypography v-if="status" :type="MAP.P2" as="p" :class="$style.notice" role="status">
-        {{ status }}
-      </UiKitTypography>
     </form>
+
+    <UiKitToast
+      :message="status"
+      :kind="status === FAILED ? 'error' : 'success'"
+      @dismiss="status = ''"
+    />
   </section>
 </template>
 
 <script setup>
 import isEmail from "validator/lib/isEmail.js";
-
-import { MAP } from "@/constants/typography";
 
 const FIELDS = [
   { name: "fullName", label: "Full name", type: "text", autocomplete: "name" },
@@ -113,7 +113,6 @@ async function onSubmit() {
 .section {
   @include band;
 
-  // The frames hold 48 down to 760 here, where the bands drop to 40
   row-gap: 48px;
   background-color: var(--FQ-grey-95);
 
@@ -170,9 +169,5 @@ async function onSubmit() {
     min-width: 0;
     width: 100%;
   }
-}
-
-.notice {
-  color: var(--FQ-text-muted);
 }
 </style>
