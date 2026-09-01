@@ -29,10 +29,10 @@ app/
                      reset.css, global.css
   assets/images/
   constants/         routes.js, typography.js
-  components/        Header, Footer, Card, CardGrid        (composites)
-  components/ui-kit/ Button, Input, Typography             (primitives)
-  layouts/           default.vue
+  components/        Header, Footer, Card, CardGrid, SectionIntro (composites)
+  components/ui-kit/ Button, Input, Toast, Typography      (primitives)
   pages/             index.vue
+  error.vue          404 / error page (Nuxt error boundary)
   views/main-page/   Hero.vue, RequestDemo.vue, plus a folder per section
                      with copy: Audiences/, HowItWorks/, CoreCapabilities/
 server/api/          demo-request.post.js — the only server route
@@ -50,26 +50,35 @@ is a plain component in `components/`. Sections never repeat that markup inline.
 
 ## Layout tiers
 
-Seven tiers, desktop-first. Never write a raw media query — `grid.scss` is
-auto-injected into every SCSS block and provides the mixins.
+Six tiers, one per design frame, desktop-first. Never write a raw media query —
+`grid.scss` is auto-injected into every SCSS block and provides the mixins.
 
-| Tier        | min-width | SCSS                                            |
-| ----------- | --------- | ----------------------------------------------- |
-| wide        | 1920      | `@include wide`                                 |
-| desktop     | 1340      | base (`:root` in `main.scss`)                   |
-| laptop      | 1140      | `@include below(desktop)`                       |
-| tablet-wide | 960       | `@include below(laptop)` — tablet layout starts |
-| tablet      | 744       | `@include below(tablet-wide)`                   |
-| phone-wide  | 480       | `@include below(tablet)` — mobile layout starts |
-| phone       | 322       | `@include below(phone-wide)`                    |
+| Tier | min-width | SCSS                            |
+| ---- | --------- | ------------------------------- |
+| 1920 | 1920      | `@include wide` — content locks |
+| 1440 | 1440      | base (`:root` in `main.scss`)   |
+| 1200 | 1200      | `@include below(w1440)`         |
+| 960  | 960       | `@include below(w1200)`         |
+| 760  | 760       | `@include below(w960)`          |
+| 320  | 320       | `@include below(w760)`          |
 
-`below(x)` means _narrower than tier x_, so each cap is that tier's min minus one.
-Layout tokens (gutter, gaps, card padding) switch per tier in `main.scss`; text
-sizes switch per tier inside `Typography.vue`. Sections never resize type
-themselves. `CardGrid` takes a column count per tier: `columns` (≥1140),
-`tabletWide` (960–1139, falls back to `tablet`), `tablet` (744–959), one below 744.
+`below(x)` means _narrower than frame x_, so each cap is that frame's width minus
+one. Tiers are named after their frame so the two cannot drift apart.
 
-Use `@include shell;` for the content column (1124px plus the gutter).
+Layout tokens (gutter, section padding, card padding) switch per tier in
+`main.scss`; text sizes switch per tier inside `Typography.vue`. Sections never
+resize type themselves.
+
+`<main>` is one grid — `@include shell` — whose named columns carry the layout:
+`bleed` reaches both viewport edges and `content` is the column, `--FQ-content`
+wide (viewport minus gutters until 1920, 1070px above it). Sections are full-bleed
+rows stacked edge to edge, with no gap between siblings and no page-level rhythm:
+`@include band` puts a section on `bleed`, gives it `--FQ-section-py`, and repeats
+the shell's columns as a subgrid, so the section's own children place themselves
+with `grid-column: content` instead of sitting in a wrapper div.
+
+`CardGrid` takes a column count per tier: `columns` (≥1200), `w960` (960–1199,
+falls back to `columns`), `w760` (760–959, falls back to `w960`), one below 760.
 
 ## Conventions
 
@@ -78,12 +87,13 @@ Use `@include shell;` for the content column (1124px plus the gutter).
 - Colours and layout constants are `--FQ-*` custom properties in `main.scss`, named
   after the design variables. Never paste a hex value into a component.
 - Never set `font-size`, `font-weight` or `line-height` directly. Wrap text in
-  `<UiKitTypography>` with a style from `constants/typography.js` (`H1 H2 H3 P1 P2
-P3 Label`). `Input.vue` is the one exception — a native `<input>` cannot be wrapped.
+  `<UiKitTypography>` with a style from `constants/typography.js` (`H1 H2 H4 P1 P2
+LABEL P12M BUTTON_M BUTTON_L`). `Input.vue` is the one exception — a native `<input>`
+  cannot be wrapped.
 - Border radius is `0` everywhere, by design.
 - Never use a negative margin. Restructure instead.
 - All link targets live in `constants/routes.js`.
-- Prettier owns formatting (`.prettierrc.json`, format-on-save via `.vscode/`), so
+- Prettier owns formatting (`.prettierrc.json`), so
   no formatting decisions belong in review.
 
 ## Copy
@@ -97,6 +107,5 @@ strings are `const`s in the component. A section with bulk copy gets a folder an
 - The demo form posts to a mailing list. Copy `.env.example` to `.env` and fill
   it in; the server warns at boot about anything missing and the route answers 503 until it
   is complete. `yarn generate` drops the route entirely — the static export has no server.
-- Core capabilities cards 5–6 reuse the "AI Investigator" illustration, and two
-  audience cards share body text: the design has no final content there yet.
+- Two audience cards share body text: the design has no final content there yet.
 - `public/og-default.png` (1200×630) is missing.
