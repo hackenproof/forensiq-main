@@ -1,43 +1,45 @@
-import secureEvidenceLockerSvg from "@/assets/images/main-page/secure-evidence-locker.svg";
-import crossCaseAiCorrelationSvg from "@/assets/images/main-page/cross-case-ai-correlation.svg";
-import cryptoBlockchainEngineSvg from "@/assets/images/main-page/advanced-crypto-blockchain-intelligence-engine.svg";
+import evidenceAnalysis from "@/assets/images/main-page/capabilities/evidence-analysis.svg";
+import investigationGraph from "@/assets/images/main-page/capabilities/investigation-graph.svg";
+import aiInvestigator from "@/assets/images/main-page/capabilities/ai-investigator.svg";
+import crossCase from "@/assets/images/main-page/capabilities/cross-case.svg";
+import blockchainIntelligence from "@/assets/images/main-page/capabilities/blockchain-intelligence.svg";
+import evidenceIntegrity from "@/assets/images/main-page/capabilities/evidence-integrity.svg";
 
-export const CAPABILITIES = [
+export default [
   {
-    title: "Secure Evidence Locker",
-    illustration: { src: secureEvidenceLockerSvg, width: 102, height: 103 },
-    description:
-      "Centralize every artifact — drive images, memory dumps, network captures, and blockchain data exports — in one encrypted repository instead of scattered local drives and disconnected tools.",
-    bullets: [
-      "Encrypted ingestion, at-rest, and in-transit storage (cloud or on-premises)",
-      "Cryptographic hashing on upload for tamper-evidence",
-      "Granular, role-based access controls per case, per user, per artifact",
-      "Full activity logging on every access, view, and export event",
-    ],
+    illustration: evidenceAnalysis,
+    label: "AI Evidence Analysis",
+    title: "Bring evidence and intelligence together",
+    body: "ForensIQ helps analyze heterogeneous evidence and surface the entities, events, indicators, and details relevant to an investigation.",
   },
   {
-    title: "Cross-Case AI Correlation",
-    illustration: { src: crossCaseAiCorrelationSvg, width: 171, height: 94 },
-    description:
-      "Automatically compare new evidence against your organization's historical case data to surface connections a manual review would take weeks to find.",
-    bullets: [
-      "AI-driven matching across wallets, infrastructure, indicators, and actor patterns",
-      "Configurable correlation scope (single unit, agency-wide, or cross-agency where authorized)",
-      "Confidence scoring on every suggested connection",
-    ],
+    illustration: investigationGraph,
+    label: "Investigation Graph",
+    title: "See the relationships hidden across your investigation",
+    body: "Connect people, accounts, devices, infrastructure, transactions, events, and other entities into a shared investigation context.",
   },
   {
-    title: "Advanced Crypto & Blockchain Intelligence Engine",
-    illustration: { src: cryptoBlockchainEngineSvg, width: 171, height: 94 },
-    description:
-      "Trace cryptocurrency flows from first touch to final destination, with wallet attribution powered by direct integration with the Crystal Intelligence database.",
-    bullets: [
-      "Multi-chain transaction tracing and fund-flow visualization",
-      "Wallet attribution: exchanges, mixers, sanctioned entities, known threat actors",
-      "Risk scoring on addresses and counterparties",
-      "Direct API cross-referencing against Crystal Intelligence's entity dataset",
-    ],
+    illustration: aiInvestigator,
+    label: "AI Investigator",
+    title: "Investigate across all available context",
+    body: "Explore questions and hypotheses across evidence and connected intelligence, helping investigators identify relevant leads without manually searching every source.",
+  },
+  {
+    illustration: crossCase,
+    label: "Cross-Case Intelligence",
+    title: "Know when you've seen it before",
+    body: "Surface recurring entities, infrastructure, wallets, indicators, and patterns across previous investigations, without manually searching historical case data.",
+  },
+  {
+    illustration: blockchainIntelligence,
+    label: "Blockchain Intelligence",
+    title: "Follow the money across chains",
+    body: "Trace cryptocurrency activity, investigate fund flows, and enrich wallet addresses with attribution and risk intelligence from connected providers.",
+  },
+  {
+    illustration: evidenceIntegrity,
+    label: "Evidence Integrity & Control",
+    title: "Keep evidence protected and accountable",
+    body: "Maintain integrity, access control, and traceability across sensitive investigation material throughout its lifecycle.",
   },
 ];
-
-export default CAPABILITIES;

@@ -1,18 +1,16 @@
 <template>
   <footer :class="$style.footer">
     <div :class="$style.inner">
-      <UiKitTypography :type="MAP.LABEL" as="p" :class="$style.text">
-        {{ COPYRIGHT }}
-      </UiKitTypography>
+      <UiKitTypography :class="$style.copyright" :type="MAP.LABEL" as="p">{{
+        COPYRIGHT
+      }}</UiKitTypography>
 
       <ul :class="$style.links">
         <li v-for="link in LINKS" :key="link.label">
           <a v-if="link.href" :class="$style.link" :href="link.href" rel="noopener" target="_blank">
             <UiKitTypography :type="MAP.LABEL">{{ link.label }}</UiKitTypography>
           </a>
-          <UiKitTypography v-else :type="MAP.LABEL" :class="$style.stub">
-            {{ link.label }}
-          </UiKitTypography>
+          <UiKitTypography v-else :type="MAP.LABEL">{{ link.label }}</UiKitTypography>
         </li>
       </ul>
     </div>
@@ -30,39 +28,56 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
 
 <style module lang="scss">
 .footer {
-  border-top: 1px solid var(--FQ-border-strong);
+  border-top: 1px solid var(--FQ-grey-85);
+
+  span,
+  p {
+    color: var(--FQ-grey-22);
+  }
 }
 
 .inner {
+  @include shell;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: var(--FQ-header-w);
-  height: 80px;
-  margin-inline: auto;
-  padding-inline: var(--FQ-gutter);
-}
+  padding-block: var(--FQ-footer-py);
 
-.text {
-  color: var(--FQ-ink-soft);
+  /* links above the copyright, without reordering the DOM */
+  @include below(tablet-wide) {
+    flex-direction: column-reverse;
+    gap: 12px;
+    text-align: center;
+  }
 }
 
 .links {
   display: flex;
   gap: 32px;
+
+  @include below(tablet-wide) {
+    gap: 24px;
+  }
 }
 
-.stub {
-  color: var(--FQ-ink-soft);
+.links li {
+  @include below(tablet-wide) {
+    padding-block: 6px;
+  }
+}
+
+.copyright {
+  @include below(tablet-wide) {
+    text-wrap: balance;
+  }
 }
 
 .link span {
-  color: var(--FQ-ink-soft);
   transition: color 160ms ease;
 }
 
 .link:hover span {
-  color: var(--FQ-ink);
+  color: var(--FQ-primary);
 }
 </style>

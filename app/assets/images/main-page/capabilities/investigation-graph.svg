@@ -1,0 +1,23 @@
+<svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(1 5)"><g id="Group 70">
+<rect id="Rectangle 64" x="0.5" y="0.5" width="101" height="93" stroke="#EAEBE5"/>
+<rect id="Rectangle 65" x="15" y="15" width="7" height="7" fill="black"/>
+<rect id="Rectangle 67" x="15" y="44" width="7" height="7" fill="black"/>
+<rect id="Rectangle 69" x="15" y="73" width="7" height="7" fill="#C2C2BC"/>
+<rect id="Rectangle 67_2" x="44" y="40" width="15" height="15" fill="#DFE3CE"/>
+<rect id="Rectangle 65_2" x="80" y="15" width="7" height="7" fill="black"/>
+<rect id="Rectangle 67_3" x="80" y="44" width="7" height="7" fill="#C2C2BC"/>
+<rect id="Rectangle 70" x="48" y="44" width="7" height="7" fill="#8A9467"/>
+<rect id="Rectangle 69_2" x="80" y="73" width="7" height="7" fill="black"/>
+<g id="Group 68">
+<path id="Vector 6" d="M21.9999 18H33V47.5H44" stroke="#E3E4DC"/>
+<path id="Vector 7" d="M80 18H70V47.5H59" stroke="#E3E4DC"/>
+</g>
+<g id="Group 69">
+<path id="Vector 6_2" d="M22 76.5H33V47.5H44" stroke="#E3E4DC"/>
+<path id="Vector 7_2" d="M80 76.5H70V47.5H59" stroke="#E3E4DC"/>
+</g>
+<path id="Line 9" d="M33 47.5L22 47.5" stroke="#E3E4DC"/>
+<path id="Line 10" d="M80 47.5L69 47.5" stroke="#E3E4DC"/>
+</g></g>
+</svg>

@@ -1,0 +1,81 @@
+:root {
+  --FQ-primary: #11110f;
+  --FQ-grey-22: #3a3a34;
+  --FQ-grey-65: #a8a9a1;
+  --FQ-grey-85: #dcdcd7;
+  --FQ-grey-91: #eaeae8;
+  --FQ-grey-95: #f4f4f3;
+  --FQ-accent-1: #f36704;
+
+  --FQ-text-muted: #55554e;
+  --FQ-placeholder: #8c8c84;
+  --FQ-on-dark: #f7f7f5;
+  --FQ-white: #ffffff;
+  --FQ-error: #c03a2b;
+  --FQ-error-surface: #fdf6f5;
+
+  --FQ-content: 1124px;
+  --FQ-gutter: 108px;
+  --FQ-header-h: 73px; /* 16px padding-block + 40px button + 1px border */
+
+  --FQ-gap-hero: 80px;
+  --FQ-section-py: 90px;
+  --FQ-section-py-edge: 180px; /* section padding where the background changes */
+  --FQ-gap-page-end: 90px;
+  --FQ-gap-title: 40px;
+  --FQ-gap-intro: 28px;
+  --FQ-band-py: 90px;
+  --FQ-card-p: 32px;
+  --FQ-card-gap: 24px;
+  --FQ-footer-py: 32px;
+
+  /* no Figma frame at 1920 — scaled from desktop */
+  @include wide {
+    --FQ-content: 1440px;
+    --FQ-gutter: 144px;
+    --FQ-card-p: 40px;
+    --FQ-card-gap: 32px;
+    --FQ-footer-py: 40px;
+  }
+
+  @include below(desktop) {
+    --FQ-gutter: 64px;
+  }
+
+  /* tablet layout starts */
+  @include below(laptop) {
+    --FQ-gutter: 72px;
+    --FQ-gap-hero: 0px;
+    --FQ-gap-page-end: 0px;
+    --FQ-gap-title: 64px;
+  }
+
+  @include below(tablet-wide) {
+    --FQ-gutter: 60px;
+    --FQ-footer-py: 48px;
+  }
+
+  /* mobile layout starts */
+  @include below(tablet) {
+    --FQ-gutter: 32px;
+    --FQ-section-py: 56px;
+    --FQ-section-py-edge: 112px;
+    --FQ-gap-title: 48px;
+    --FQ-gap-intro: 20px;
+    --FQ-band-py: 80px;
+    --FQ-card-p: 28px;
+    --FQ-card-gap: 20px;
+  }
+
+  @include below(phone-wide) {
+    --FQ-gutter: 24px;
+    --FQ-header-h: 61px; /* 12px padding-block + 36px button + 1px border */
+    --FQ-section-py: 40px;
+    --FQ-section-py-edge: 80px;
+    --FQ-gap-title: 36px;
+    --FQ-gap-intro: 16px;
+    --FQ-card-p: 24px;
+    --FQ-card-gap: 16px;
+    --FQ-footer-py: 40px;
+  }
+}

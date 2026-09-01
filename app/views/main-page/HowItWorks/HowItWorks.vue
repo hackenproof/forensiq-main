@@ -1,18 +1,13 @@
 <template>
-  <section :class="$style.section">
+  <section id="how-it-works" :class="$style.section">
     <div :class="$style.intro">
-      <UiKitTypography :type="MAP.H2" as="h2">Core capabilities</UiKitTypography>
+      <UiKitTypography :type="MAP.H2" as="h2">How ForensIQ works</UiKitTypography>
       <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">{{ LEAD }}</UiKitTypography>
     </div>
 
-    <CardGrid :columns="3">
-      <li v-for="item in CAPABILITIES" :key="item.label">
-        <Card :label="item.label" :title="item.title">
-          <template #illustration>
-            <img :src="item.illustration" alt="" width="104" height="104" />
-          </template>
-          {{ item.body }}
-        </Card>
+    <CardGrid :columns="STEPS.length">
+      <li v-for="step in STEPS" :key="step.label">
+        <Card :label="step.label" :title="step.title" :icon="step.icon">{{ step.body }}</Card>
       </li>
     </CardGrid>
 
@@ -25,7 +20,7 @@
 <script setup>
 import ROUTES from "@/constants/routes";
 import { MAP } from "@/constants/typography";
-import CAPABILITIES from "./CoreCapabilities.data";
+import STEPS from "./HowItWorks.data";
 
 const LEAD =
   "When a case involves a ransom demand or crypto-enabled fraud, ForensIQ unifies logs, memory captures, and on-chain data in one workspace, using AI to cross-check it against prior case files.";
@@ -35,7 +30,7 @@ const LEAD =
 .section {
   @include shell;
 
-  padding-block: var(--FQ-section-py);
+  padding-block: var(--FQ-section-py-edge) var(--FQ-section-py); /* Grey/95 band above */
 
   display: flex;
   flex-direction: column;
@@ -73,7 +68,8 @@ const LEAD =
   }
 
   @include below(tablet) {
-    display: none;
+    align-self: stretch;
+    margin-inline: var(--FQ-gutter);
   }
 }
 </style>
