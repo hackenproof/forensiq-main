@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.field, { [$style.invalid]: invalid }]">
+  <div :class="[$style.field, { [$style.invalid]: error }]">
     <label :for="id" :class="$style.label">{{ label }}</label>
     <input
       :id="id"
@@ -8,18 +8,18 @@
       :name="name"
       :placeholder="label"
       :autocomplete="autocomplete"
-      :aria-invalid="invalid || undefined"
-      :aria-describedby="invalid ? `${id}-error` : undefined"
+      :aria-invalid="error ? true : undefined"
+      :aria-describedby="error ? `${id}-error` : undefined"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       @blur="$emit('blur')"
     />
-    <p v-if="invalid" :id="`${id}-error`" :class="$style.error">{{ error }}</p>
+    <p v-if="error" :id="`${id}-error`" :class="$style.error">{{ error }}</p>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   modelValue: { type: String, default: "" },
   name: { type: String, required: true },
   label: { type: String, required: true },
@@ -31,7 +31,6 @@ const props = defineProps({
 defineEmits(["update:modelValue", "blur"]);
 
 const id = useId();
-const invalid = computed(() => Boolean(props.error));
 </script>
 
 <style module lang="scss">
@@ -45,9 +44,7 @@ const invalid = computed(() => Boolean(props.error));
   position: absolute;
   width: 1px;
   height: 1px;
-  padding: 0;
   overflow: hidden;
-  border: 0;
   clip-path: inset(50%);
   white-space: nowrap;
 }
@@ -60,19 +57,16 @@ const invalid = computed(() => Boolean(props.error));
   background-color: var(--FQ-grey-95);
   border: 1px solid var(--FQ-grey-85);
   border-radius: 0;
-  color: var(--FQ-primary);
-  caret-color: var(--FQ-primary);
+  color: #333333;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
-  font-weight: 400;
   line-height: 28px;
-  letter-spacing: 0;
   transition:
     background-color 160ms ease,
     border-color 160ms ease;
 
   &::placeholder {
-    color: var(--FQ-placeholder);
+    color: var(--FQ-grey-65);
     opacity: 1;
   }
 
@@ -86,6 +80,16 @@ const invalid = computed(() => Boolean(props.error));
     border-color: var(--FQ-grey-65);
     outline: none;
   }
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
 }
 
 .invalid .input {
