@@ -1,19 +1,17 @@
 <template>
   <footer :class="$style.footer">
-    <div :class="$style.inner">
-      <UiKitTypography :class="$style.copyright" :type="MAP.LABEL" as="p">{{
-        COPYRIGHT
-      }}</UiKitTypography>
+    <UiKitTypography :class="$style.copyright" :type="MAP.LABEL" as="p">{{
+      COPYRIGHT
+    }}</UiKitTypography>
 
-      <ul :class="$style.links">
-        <li v-for="link in LINKS" :key="link.label">
-          <a v-if="link.href" :class="$style.link" :href="link.href" rel="noopener" target="_blank">
-            <UiKitTypography :type="MAP.LABEL">{{ link.label }}</UiKitTypography>
-          </a>
-          <UiKitTypography v-else :type="MAP.LABEL">{{ link.label }}</UiKitTypography>
-        </li>
-      </ul>
-    </div>
+    <ul :class="$style.links">
+      <li v-for="link in LINKS" :key="link.label">
+        <a v-if="link.href" :class="$style.link" :href="link.href" rel="noopener" target="_blank">
+          <UiKitTypography :type="MAP.LABEL">{{ link.label }}</UiKitTypography>
+        </a>
+        <UiKitTypography v-else :type="MAP.LABEL">{{ link.label }}</UiKitTypography>
+      </li>
+    </ul>
   </footer>
 </template>
 
@@ -28,26 +26,22 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
 
 <style module lang="scss">
 .footer {
-  border-top: 1px solid var(--FQ-grey-85);
-
-  span,
-  p {
-    color: var(--FQ-grey-22);
-  }
-}
-
-.inner {
-  @include shell;
+  padding-inline: var(--FQ-chrome-px);
+  padding-block: var(--FQ-footer-py);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-block: var(--FQ-footer-py);
+  background-color: var(--FQ-primary);
 
-  /* links above the copyright, without reordering the DOM */
-  @include below(tablet-wide) {
+  span,
+  p {
+    color: var(--FQ-on-dark);
+  }
+
+  @include below(w760) {
     flex-direction: column-reverse;
-    gap: 12px;
+    gap: 24px;
     text-align: center;
   }
 }
@@ -55,20 +49,16 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
 .links {
   display: flex;
   gap: 32px;
-
-  @include below(tablet-wide) {
-    gap: 24px;
-  }
 }
 
 .links li {
-  @include below(tablet-wide) {
+  @include below(w760) {
     padding-block: 6px;
   }
 }
 
 .copyright {
-  @include below(tablet-wide) {
+  @include below(w760) {
     text-wrap: balance;
   }
 }
@@ -78,6 +68,6 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
 }
 
 .link:hover span {
-  color: var(--FQ-primary);
+  color: var(--FQ-white);
 }
 </style>

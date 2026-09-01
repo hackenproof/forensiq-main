@@ -1,7 +1,11 @@
 <template>
   <ul
     :class="$style.grid"
-    :style="{ '--desktop': columns, '--tablet-wide': tabletWide ?? tablet, '--tablet': tablet }"
+    :style="{
+      '--c-default': columns,
+      '--c-w960': w960 ?? columns,
+      '--c-w760': w760 ?? w960 ?? columns,
+    }"
   >
     <slot />
   </ul>
@@ -10,32 +14,30 @@
 <script setup>
 defineProps({
   columns: { type: Number, required: true },
-  /* 960-1139 */
-  tabletWide: { type: Number, default: null },
-  tablet: { type: Number, default: 2 },
+  w960: { type: Number, default: null },
+  w760: { type: Number, default: null },
 });
 </script>
 
 <style module lang="scss">
 .grid {
-  --columns: var(--desktop);
+  --columns: var(--c-default);
 
   display: grid;
   grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
   gap: 1px;
-  width: 100%;
   padding: 1px;
   background-color: var(--FQ-grey-85);
 
-  @include below(laptop) {
-    --columns: var(--tablet-wide);
+  @include below(w1200) {
+    --columns: var(--c-w960);
   }
 
-  @include below(tablet-wide) {
-    --columns: var(--tablet);
+  @include below(w960) {
+    --columns: var(--c-w760);
   }
 
-  @include below(tablet) {
+  @include below(w760) {
     --columns: 1;
   }
 }

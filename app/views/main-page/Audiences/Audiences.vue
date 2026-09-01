@@ -1,28 +1,29 @@
 <template>
-  <section v-for="audience in AUDIENCES" :key="audience.eyebrow" :class="$style.band">
-    <div :class="$style.inner">
-      <div :class="$style.intro">
-        <div :class="$style.heading">
-          <UiKitTypography :type="MAP.P3" as="p" :class="$style.eyebrow">
-            {{ audience.eyebrow }}
-          </UiKitTypography>
-          <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
-            {{ audience.title }}
-          </UiKitTypography>
-        </div>
+  <section v-for="audience in AUDIENCES" :key="audience.tagline" :class="$style.band">
+    <div :class="$style.top">
+      <UiKitTypography :type="MAP.P1" as="p" :class="$style.tagline">
+        {{ audience.tagline }}
+      </UiKitTypography>
+
+      <div :class="$style.description">
+        <UiKitTypography :type="MAP.H2" as="h2" :class="$style.title">
+          {{ audience.title }}
+        </UiKitTypography>
         <UiKitTypography :type="MAP.P1" as="p" :class="$style.lead">
           {{ audience.lead }}
         </UiKitTypography>
       </div>
-
-      <CardGrid :columns="audience.cards.length" :tablet-wide="2" :tablet="1">
-        <li v-for="card in audience.cards" :key="card.label">
-          <Card :label="card.label">{{ card.body }}</Card>
-        </li>
-      </CardGrid>
-
-      <UiKitButton :to="ROUTES.REQUEST_DEMO" :class="$style.cta">{{ audience.cta }}</UiKitButton>
     </div>
+
+    <CardGrid :columns="audience.cards.length" :w960="2">
+      <li v-for="card in audience.cards" :key="card.label">
+        <Card :label="card.label">{{ card.body }}</Card>
+      </li>
+    </CardGrid>
+
+    <UiKitButton large :to="ROUTES.REQUEST_DEMO" :class="$style.cta">
+      {{ audience.cta }}
+    </UiKitButton>
   </section>
 </template>
 
@@ -34,70 +35,66 @@ import AUDIENCES from "./Audiences.data";
 
 <style module lang="scss">
 .band {
-  padding-block: var(--FQ-band-py);
+  @include band;
+
+  row-gap: var(--FQ-gap-block);
   background-color: var(--FQ-grey-95);
-}
 
-/* the two bands read as one Grey/95 surface: no doubled padding at the join */
-.band + .band {
-  @include below(tablet) {
-    padding-top: 0;
+  > * {
+    grid-column: content;
   }
 }
 
-.inner {
-  @include shell;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 64px;
-
-  @include below(tablet) {
-    gap: 36px;
-  }
-}
-
-.eyebrow {
-  text-wrap: balance;
-
-  color: var(--FQ-accent-1);
-}
-
-.intro,
-.heading {
+.top,
+.description {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.intro {
-  gap: var(--FQ-gap-intro);
-  max-width: 604px;
+.top {
+  gap: 16px;
 }
 
-.heading {
-  gap: 8px;
+.description {
+  gap: var(--FQ-gap-intro);
+}
+
+.tagline {
+  color: var(--FQ-accent-1);
+
+  @include below(w760) {
+    display: grid;
+    align-content: center;
+    min-height: 30px;
+    font-size: 14px;
+    line-height: normal;
+  }
 }
 
 .title {
   text-wrap: balance;
 
-  /* the 244px width sets the Figma line breaks on its own */
-  @include below(phone-wide) {
-    max-width: 244px;
-    text-wrap: wrap;
+  color: var(--FQ-grey-22);
+
+  @include below(w760) {
+    max-width: var(--FQ-measure-title);
   }
 }
 
 .lead {
+  max-width: var(--FQ-measure-lead);
   color: var(--FQ-text-muted);
 }
 
 .cta {
-  @include below(phone-wide) {
-    width: 100%;
+  justify-self: center;
+  min-width: 314px;
+
+  @include below(w760) {
+    justify-self: stretch;
+    min-width: 0;
   }
 }
 </style>

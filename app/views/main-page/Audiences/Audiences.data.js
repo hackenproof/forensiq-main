@@ -1,6 +1,6 @@
 export default [
   {
-    eyebrow: "Government & Law Enforcement",
+    tagline: "Government & Law Enforcement",
     title: "Connect intelligence across cases",
     lead: "ForensIQ ingest, hashes, and logs every piece of evidence under an immutable chain of custody from the moment it enters the platform.",
     cta: "Request demo",
@@ -24,7 +24,7 @@ export default [
     ],
   },
   {
-    eyebrow: "For Incident Response, SOC & CSIRT Teams",
+    tagline: "For Incident Response, SOC & CSIRT Teams",
     title: "From Alert to Answers",
     lead: "When a case involves a ransom demand or crypto-enabled fraud, ForensIQ unifies logs, memory captures, and on-chain data in one workspace, using AI to cross-check it against prior case files",
     cta: "Join the Enterprise Beta",

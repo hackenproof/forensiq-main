@@ -3,13 +3,9 @@
     :is="to ? 'a' : 'button'"
     :href="to"
     :type="to ? undefined : type"
-    :class="[
-      $style.button,
-      $style[variant],
-      { [$style.large]: large, [$style.fullwidth]: fullwidth },
-    ]"
+    :class="[$style.button, $style[variant], { [$style.large]: large }]"
   >
-    <UiKitTypography :type="MAP.LABEL">
+    <UiKitTypography :type="large ? MAP.BUTTON_L : MAP.BUTTON_M">
       <slot />
     </UiKitTypography>
   </component>
@@ -22,7 +18,6 @@ defineProps({
   to: { type: String, default: undefined },
   variant: { type: String, default: "primary" },
   large: { type: Boolean, default: false },
-  fullwidth: { type: Boolean, default: false },
   type: { type: String, default: "button" },
 });
 </script>
@@ -32,8 +27,8 @@ defineProps({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* height = py * 2 + 16px Label line-height: 40, 52 large, 36 in the header */
   padding: 12px 20px;
+  min-height: 40px;
   white-space: nowrap;
   transition:
     background-color 160ms ease,
@@ -58,8 +53,7 @@ defineProps({
 
   &:hover,
   &:focus-visible {
-    background-color: var(--FQ-white);
-    box-shadow: inset 0 0 0 1px var(--FQ-primary);
+    background-color: var(--FQ-grey-95);
 
     span {
       color: var(--FQ-primary);
@@ -69,8 +63,6 @@ defineProps({
 
 .secondary {
   background-color: var(--FQ-grey-95);
-  /* inset, like a Figma stroke — a real border would widen the button by 2px */
-  box-shadow: inset 0 0 0 1px var(--FQ-grey-91);
 
   span {
     color: var(--FQ-primary);
@@ -78,15 +70,31 @@ defineProps({
 
   &:hover,
   &:focus-visible {
-    box-shadow: inset 0 0 0 1px var(--FQ-primary);
+    background-color: var(--FQ-accent-1);
+
+    span {
+      color: var(--FQ-white);
+    }
   }
 }
 
 .large {
-  padding: 18px 28px;
-}
+  padding-inline: 24px;
+  min-height: 52px;
 
-.fullwidth {
-  width: 100%;
+  @include below(w760) {
+    padding-inline: 20px;
+    min-height: 40px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--FQ-grey-95);
+    box-shadow: inset 0 0 0 1px var(--FQ-primary);
+
+    span {
+      color: var(--FQ-primary);
+    }
+  }
 }
 </style>
