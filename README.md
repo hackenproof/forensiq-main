@@ -17,7 +17,7 @@ yarn format        # Prettier over the whole repo
 yarn format:check  # verify formatting without writing
 ```
 
-Prettier is the only tooling — there is no linter and no test runner.
+Prettier is the only project check — there is no linter or test command.
 
 ## Structure
 
@@ -25,19 +25,20 @@ Prettier is the only tooling — there is no linter and no test runner.
 
 ```
 app/
-  assets/css/        main.scss (--FQ-* tokens), grid.scss (tiers + mixins),
-                     reset.css, global.css
+  assets/css/        main.scss (palette), grid.scss (tiers + mixins),
+                     reset.css, global.scss
   assets/images/
   constants/         routes.js, typography.js
-  components/        Header, Footer, Card, CardGrid, SectionIntro (composites)
+  components/        FqSection, Header, Footer, Card, CardGrid, SectionIntro (composites)
   components/ui-kit/ Button, Input, Toast, Typography      (primitives)
+  layouts/default.vue one Header/Footer and the named page grid
   pages/             index.vue
   error.vue          404 / error page (Nuxt error boundary)
-  views/main-page/   Hero.vue, RequestDemo.vue, plus a folder per section
-                     with copy: Audiences/, HowItWorks/, CoreCapabilities/
+  views/main-page/   each section and its local .data.js copy module
 server/api/          demo-request.post.js — the only server route
 server/plugins/      check-env.js — warns at boot about missing env
 server/utils/        mailer.js — which env vars the route needs
+shared/              demo-request-validation.js for client and server
 ```
 
 Auto-imports are on and keep Nuxt's path prefix: `ui-kit/Button.vue` is
@@ -53,42 +54,44 @@ is a plain component in `components/`. Sections never repeat that markup inline.
 Six tiers, one per design frame, desktop-first. Never write a raw media query —
 `grid.scss` is auto-injected into every SCSS block and provides the mixins.
 
-| Tier | min-width | SCSS                            |
-| ---- | --------- | ------------------------------- |
-| 1920 | 1920      | `@include wide` — content locks |
-| 1440 | 1440      | base (`:root` in `main.scss`)   |
-| 1200 | 1200      | `@include below(w1440)`         |
-| 960  | 960       | `@include below(w1200)`         |
-| 760  | 760       | `@include below(w960)`          |
-| 320  | 320       | `@include below(w760)`          |
+| Tier | min-width | SCSS                 |
+| ---- | --------- | -------------------- |
+| 1920 | 1920      | base                 |
+| 1440 | 1440      | `@include below1920` |
+| 1200 | 1200      | `@include below1440` |
+| 960  | 960       | `@include below1200` |
+| 760  | 760       | `@include below960`  |
+| 320  | 320       | `@include below760`  |
 
-`below(x)` means _narrower than frame x_, so each cap is that frame's width minus
-one. Tiers are named after their frame so the two cannot drift apart.
+Each `below<frame>` mixin means _narrower than that frame_, so its cap is the
+frame's width minus one. Tiers are named after their frame so the two cannot drift
+apart.
 
-Layout tokens (gutter, section padding, card padding) switch per tier in
-`main.scss`; text sizes switch per tier inside `Typography.vue`. Sections never
-resize type themselves.
+`main.scss` owns only the reusable palette. Text sizes switch per tier inside
+`Typography.vue`; sections never resize type themselves.
 
-`<main>` is one grid — `@include shell` — whose named columns carry the layout:
-`bleed` reaches both viewport edges and `content` is the column, `--FQ-content`
-wide (viewport minus gutters until 1920, 1070px above it). Sections are full-bleed
-rows stacked edge to edge, with no gap between siblings and no page-level rhythm:
-`@include band` puts a section on `bleed`, gives it `--FQ-section-py`, and repeats
-the shell's columns as a subgrid, so the section's own children place themselves
-with `grid-column: content` instead of sitting in a wrapper div.
+`layouts/default.vue` owns the one `@include page-shell` grid for normal pages:
+Header, `main`, and each section use its subgrid. The four named spans are
+`viewport`, `content-wide`, `content`, and `content-narrow`. Above 1920, content
+locks to 1070px; below it, content is the viewport minus the responsive gutters.
+`FqSection` spans `viewport` and puts ordinary slot content on `content` by
+default. Sections stack edge to edge with no page-level vertical rhythm; a section
+owns its surface, padding, and content gap. A local CSS custom property exists only
+where a current section actually needs to pass an override through `FqSection`.
 
-`CardGrid` takes a column count per tier: `columns` (≥1200), `w960` (960–1199,
-falls back to `columns`), `w760` (760–959, falls back to `w960`), one below 760.
+`CardGrid` takes a column count per threshold: `columns` (≥1200),
+`columnsBelow1200` (960–1199, falling back to `columns`), and `columnsBelow960`
+(760–959, falling back to `columnsBelow1200`), then one column below 760.
 
 ## Conventions
 
 - CSS Modules everywhere: `<style module lang="scss">` + `$style.foo`. The only
-  global stylesheets are `global.css` and `Typography.vue`, which owns `.FQ-*`.
-- Colours and layout constants are `--FQ-*` custom properties in `main.scss`, named
-  after the design variables. Never paste a hex value into a component.
+  global stylesheets are `global.scss` and `Typography.vue`, which owns `.FQ-*`.
+- Only the reusable palette is global (`--FQ-*` in `main.scss`). Layout, spacing,
+  and single-component colours live with their owning layout or component. Do not
+  add a custom property for a hypothetical override.
 - Never set `font-size`, `font-weight` or `line-height` directly. Wrap text in
-  `<UiKitTypography>` with a style from `constants/typography.js` (`H1 H2 H4 P1 P2
-LABEL P12M BUTTON_M BUTTON_L`). `Input.vue` is the one exception — a native `<input>`
+  `<UiKitTypography>` with a style from `constants/typography.js` (`H1 H2 H4 P1 P2 LABEL P12M BUTTON_M BUTTON_L`). `Input.vue` is the one exception — a native `<input>`
   cannot be wrapped.
 - Border radius is `0` everywhere, by design.
 - Never use a negative margin. Restructure instead.
@@ -96,16 +99,14 @@ LABEL P12M BUTTON_M BUTTON_L`). `Input.vue` is the one exception — a native `<
 - Prettier owns formatting (`.prettierrc.json`), so
   no formatting decisions belong in review.
 
-## Copy
+## Copy and validation
 
-Copy lives with whatever renders it — there is no shared copy directory. Short
-strings are `const`s in the component. A section with bulk copy gets a folder and a
-`<Name>.data.js` it imports itself; `pages/index.vue` passes nothing down as props.
+Immutable public copy lives in each section's local `<Name>.data.js`; page composition
+passes no copy down as props. `shared/demo-request-validation.js` owns the demo form
+rules and is imported with Nuxt's built-in `#shared` alias by both the client and server.
 
 ## Known gaps
 
-- The demo form posts to a mailing list. Copy `.env.example` to `.env` and fill
-  it in; the server warns at boot about anything missing and the route answers 503 until it
-  is complete. `yarn generate` drops the route entirely — the static export has no server.
-- Two audience cards share body text: the design has no final content there yet.
-- `public/og-default.png` (1200×630) is missing.
+- The demo form posts to a mailing list. Copy `.env.example` to `.env` and fill  
+  it in; the server warns at boot about anything missing and the route answers 503 until it  
+  is complete. `yarn generate` drops the route entirely — the static export has no server
