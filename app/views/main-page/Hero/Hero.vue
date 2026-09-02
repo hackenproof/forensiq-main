@@ -7,14 +7,15 @@
       width="1254"
       height="864"
     />
-    <img
+    <NuxtImg
       :class="$style.graph"
-      src="~/assets/images/main-page/hero-graph.png"
+      src="/images/main-page/hero-graph.png"
       alt=""
       width="1043"
       height="673"
+      format="webp"
+      quality="80"
     />
-
     <div :class="$style.copy">
       <div :class="$style.text">
         <span :class="$style.wordmark" role="img" :aria-label="CONTENT.brand" />
@@ -36,12 +37,14 @@
       </div>
     </div>
 
-    <img
+    <NuxtImg
       :class="$style.graphMobile"
-      src="~/assets/images/main-page/hero-graph-mobile.png"
+      src="/images/main-page/hero-graph-mobile.png"
       alt=""
       width="352"
       height="312"
+      format="webp"
+      quality="80"
     />
   </section>
 </template>
@@ -84,9 +87,15 @@ import CONTENT from "./Hero.data";
 .graph {
   position: absolute;
   max-width: none;
+}
+
+.graphMobile {
+  display: none;
 
   @include below760 {
-    display: none;
+    display: block;
+    width: 352px;
+    max-width: none;
   }
 }
 
@@ -114,6 +123,10 @@ import CONTENT from "./Hero.data";
   bottom: 30.5px;
   right: -306px;
 
+  @include below760 {
+    display: none;
+  }
+
   @include below1920 {
     right: -406px;
   }
@@ -130,16 +143,6 @@ import CONTENT from "./Hero.data";
     top: -34px;
     right: -556px;
     bottom: auto;
-  }
-}
-
-.graphMobile {
-  display: none;
-
-  @include below760 {
-    display: block;
-    width: 352px;
-    max-width: none;
   }
 }
 
@@ -210,5 +213,11 @@ import CONTENT from "./Hero.data";
 .actions {
   display: flex;
   gap: 16px;
+}
+
+@include below760 {
+  .lines {
+    display: none;
+  }
 }
 </style>
