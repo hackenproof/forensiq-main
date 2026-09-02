@@ -1,9 +1,9 @@
 <template>
-  <section :class="$style.section">
-    <SectionIntro title="Core capabilities" :lead="LEAD" />
+  <FqSection>
+    <SectionIntro :title="CAPABILITIES.title" :lead="CAPABILITIES.lead" />
 
-    <CardGrid :columns="3" :w760="2">
-      <li v-for="item in CAPABILITIES" :key="item.label">
+    <CardGrid :columns="3" :columns-below-960="2">
+      <li v-for="item in CAPABILITIES.items" :key="item.label">
         <Card :label="item.label" :title="item.title">
           <template #illustration>
             <img :src="item.illustration" alt="" width="104" height="104" />
@@ -12,24 +12,9 @@
         </Card>
       </li>
     </CardGrid>
-  </section>
+  </FqSection>
 </template>
 
 <script setup>
 import CAPABILITIES from "./CoreCapabilities.data";
-
-const LEAD =
-  "Connect evidence and intelligence to investigate your case. Unlock the full potential of your data with AI-driven capabilities designed for modern forensic challenges.";
 </script>
-
-<style module lang="scss">
-.section {
-  @include band;
-
-  row-gap: var(--FQ-gap-block);
-
-  > * {
-    grid-column: content;
-  }
-}
-</style>

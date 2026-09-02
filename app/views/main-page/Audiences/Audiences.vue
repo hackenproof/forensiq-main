@@ -1,5 +1,5 @@
 <template>
-  <section v-for="audience in AUDIENCES" :key="audience.tagline" :class="$style.band">
+  <FqSection v-for="audience in AUDIENCES.items" :key="audience.tagline" :class="$style.section">
     <div :class="$style.top">
       <UiKitTypography :type="MAP.P1" as="p" :class="$style.tagline">
         {{ audience.tagline }}
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <CardGrid :columns="audience.cards.length" :w960="2">
+    <CardGrid :columns="audience.cards.length" :columns-below-1200="2">
       <li v-for="card in audience.cards" :key="card.label">
         <Card :label="card.label">{{ card.body }}</Card>
       </li>
@@ -24,7 +24,7 @@
     <UiKitButton large :to="ROUTES.REQUEST_DEMO" :class="$style.cta">
       {{ audience.cta }}
     </UiKitButton>
-  </section>
+  </FqSection>
 </template>
 
 <script setup>
@@ -34,15 +34,8 @@ import AUDIENCES from "./Audiences.data";
 </script>
 
 <style module lang="scss">
-.band {
-  @include band;
-
-  row-gap: var(--FQ-gap-block);
-  background-color: var(--FQ-grey-95);
-
-  > * {
-    grid-column: content;
-  }
+.section {
+  --section-background: var(--FQ-grey-95);
 }
 
 .top,
@@ -58,13 +51,17 @@ import AUDIENCES from "./Audiences.data";
 }
 
 .description {
-  gap: var(--FQ-gap-intro);
+  gap: 24px;
+
+  @include below760 {
+    gap: 16px;
+  }
 }
 
 .tagline {
   color: var(--FQ-accent-1);
 
-  @include below(w760) {
+  @include below760 {
     display: grid;
     align-content: center;
     min-height: 30px;
@@ -78,13 +75,13 @@ import AUDIENCES from "./Audiences.data";
 
   color: var(--FQ-grey-22);
 
-  @include below(w760) {
-    max-width: var(--FQ-measure-title);
+  @include below760 {
+    max-width: 14em;
   }
 }
 
 .lead {
-  max-width: var(--FQ-measure-lead);
+  max-width: 35em;
   color: var(--FQ-text-muted);
 }
 
@@ -92,7 +89,7 @@ import AUDIENCES from "./Audiences.data";
   justify-self: center;
   min-width: 314px;
 
-  @include below(w760) {
+  @include below760 {
     justify-self: stretch;
     min-width: 0;
   }
