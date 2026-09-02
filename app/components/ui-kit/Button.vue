@@ -82,7 +82,7 @@ defineProps({
   padding-inline: 24px;
   min-height: 52px;
 
-  @include below(w760) {
+  @include below760 {
     padding-inline: 20px;
     min-height: 40px;
   }

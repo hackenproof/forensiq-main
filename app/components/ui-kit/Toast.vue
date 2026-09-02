@@ -10,7 +10,6 @@
         v-if="message"
         :class="[$style.toast, kind === 'error' && $style.error]"
         :role="kind === 'error' ? 'alert' : 'status'"
-        @click="$emit('dismiss')"
       >
         <span :class="$style.marker" aria-hidden="true" />
         <UiKitTypography :type="MAP.P2" as="p">{{ message }}</UiKitTypography>
@@ -25,7 +24,7 @@ import { MAP } from "@/constants/typography";
 const props = defineProps({
   message: { type: String, default: "" },
   kind: { type: String, default: "success" },
-  duration: { type: Number, default: 5000 },
+  duration: { type: Number, default: 4000 },
 });
 
 const emit = defineEmits(["dismiss"]);
@@ -36,8 +35,7 @@ watch(
   () => props.message,
   (message) => {
     clearTimeout(timer);
-    if (message && props.kind !== "error")
-      timer = setTimeout(() => emit("dismiss"), props.duration);
+    if (message) timer = setTimeout(() => emit("dismiss"), props.duration);
   },
 );
 
@@ -55,21 +53,27 @@ onUnmounted(() => {
 <style module lang="scss">
 .toast {
   position: fixed;
-  inset-inline-end: var(--FQ-chrome-px);
-  bottom: var(--FQ-footer-py);
+  inset-inline-end: 108px;
+  bottom: 32px;
   z-index: 60;
   display: flex;
   align-items: center;
   gap: 12px;
-  max-width: calc(100% - var(--FQ-chrome-px) * 2);
+  max-width: calc(100% - 216px);
   padding: 14px 18px;
   background-color: var(--FQ-primary);
   border: 1px solid var(--FQ-grey-85);
   color: var(--FQ-on-dark);
-  cursor: pointer;
 
-  @include below(w760) {
-    inset-inline: var(--FQ-chrome-px);
+  @include below1440 {
+    inset-inline-end: 40px;
+    max-width: calc(100% - 80px);
+  }
+
+  @include below760 {
+    inset-inline: 16px;
+    bottom: 24px;
+    max-width: calc(100% - 32px);
   }
 }
 

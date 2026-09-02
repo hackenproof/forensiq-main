@@ -1,37 +1,58 @@
-@use "sass:map";
+$bp-1920: 1919px;
+$bp-1440: 1439px;
+$bp-1200: 1199px;
+$bp-960: 959px;
+$bp-760: 759px;
 
-$breakpoints: (
-  w1440: 1439px,
-  w1200: 1199px,
-  w960: 959px,
-  w760: 759px,
-);
-
-$wide: 1920px;
-
-@mixin shell {
+@mixin page-shell {
   display: grid;
   grid-template-columns:
-    [bleed-start] 1fr
-    [content-start] var(--FQ-content) [content-end]
-    1fr [bleed-end];
+    [viewport-start] minmax(var(--page-gutter), 1fr)
+    [content-wide-start] minmax(0, calc((var(--page-content-wide) - var(--page-content)) / 2))
+    [content-start] minmax(0, calc((var(--page-content) - var(--page-content-narrow)) / 2))
+    [content-narrow-start] minmax(0, var(--page-content-narrow)) [content-narrow-end]
+    minmax(0, calc((var(--page-content) - var(--page-content-narrow)) / 2)) [content-end]
+    minmax(0, calc((var(--page-content-wide) - var(--page-content)) / 2)) [content-wide-end]
+    minmax(var(--page-gutter), 1fr)
+    [viewport-end];
+}
+
+@mixin shell {
+  @include page-shell;
 }
 
 @mixin band {
-  grid-column: bleed;
+  grid-column: viewport;
   display: grid;
   grid-template-columns: subgrid;
-  padding-block: var(--FQ-section-py);
 }
 
-@mixin below($name) {
-  @media (max-width: map.get($breakpoints, $name)) {
+@mixin below1920 {
+  @media screen and (max-width: #{$bp-1920}) {
     @content;
   }
 }
 
-@mixin wide {
-  @media (min-width: $wide) {
+@mixin below1440 {
+  @media screen and (max-width: #{$bp-1440}) {
+    @content;
+  }
+}
+
+@mixin below1200 {
+  @media screen and (max-width: #{$bp-1200}) {
+    @content;
+  }
+}
+
+@mixin below960 {
+  @media screen and (max-width: #{$bp-960}) {
+    @content;
+  }
+}
+
+@mixin below760 {
+  @media screen and (max-width: #{$bp-760}) {
     @content;
   }
 }

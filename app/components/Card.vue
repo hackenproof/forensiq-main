@@ -33,9 +33,9 @@ defineProps({
 .card {
   display: flex;
   flex-direction: column;
-  gap: var(--FQ-card-gap);
+  gap: 24px;
   height: 100%;
-  padding: var(--FQ-card-p);
+  padding: 32px;
   background-color: var(--FQ-grey-95);
 }
 
@@ -52,7 +52,7 @@ defineProps({
 }
 
 .iconCard .text {
-  gap: var(--FQ-card-gap);
+  gap: 24px;
 }
 
 .header {
@@ -76,5 +76,16 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+@include below760 {
+  .card {
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .iconCard .text {
+    gap: 16px;
+  }
 }
 </style>

@@ -1,6 +1,10 @@
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--FQ-header-h) + 16px);
+  scroll-padding-top: 89px;
+
+  @include below760 {
+    scroll-padding-top: 81px;
+  }
 }
 
 body {

@@ -86,11 +86,33 @@ $fq-styles: (
       text-transform: map.get($style, transform);
     }
 
-    @each $bp, $width in $breakpoints {
-      @if map.has-key($style, $bp) {
-        @include below($bp) {
-          @include size(map.get($style, $bp));
-        }
+    @if map.has-key($style, w1920) {
+      @include below1920 {
+        @include size(map.get($style, w1920));
+      }
+    }
+
+    @if map.has-key($style, w1440) {
+      @include below1440 {
+        @include size(map.get($style, w1440));
+      }
+    }
+
+    @if map.has-key($style, w1200) {
+      @include below1200 {
+        @include size(map.get($style, w1200));
+      }
+    }
+
+    @if map.has-key($style, w960) {
+      @include below960 {
+        @include size(map.get($style, w960));
+      }
+    }
+
+    @if map.has-key($style, w760) {
+      @include below760 {
+        @include size(map.get($style, w760));
       }
     }
   }

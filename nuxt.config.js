@@ -3,7 +3,7 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/google-fonts"],
 
-  css: ["~/assets/css/main.scss", "~/assets/css/reset.css", "~/assets/css/global.css"],
+  css: ["~/assets/css/main.scss", "~/assets/css/reset.css", "~/assets/css/global.scss"],
 
   runtimeConfig: {
     mailerApiUrl: "",
