@@ -43,8 +43,8 @@ $fq-styles: (
   ),
   "H1": (
     desktop: 74px normal,
-    w1440: 64px 68px,
-    w960: 40px 48px,
+    w1440: 64px normal,
+    w960: 40px normal,
     weight: 500,
   ),
   "H2": (
