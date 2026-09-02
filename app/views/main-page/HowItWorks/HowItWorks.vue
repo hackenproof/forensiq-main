@@ -14,7 +14,7 @@
 import STEPS from "./HowItWorks.data";
 
 const LEAD =
-  "When a case involves a ransom demand or crypto-enabled fraud, ForensIQ unifies logs, memory captures, and on-chain data in one workspace, using AI to cross-check it against prior case files.";
+  "Transform fragmented evidence into a unified investigation. Our four-step process guides you from raw data to actionable insight.";
 </script>
 
 <style module lang="scss">

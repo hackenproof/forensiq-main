@@ -19,7 +19,7 @@
 import CAPABILITIES from "./CoreCapabilities.data";
 
 const LEAD =
-  "When a case involves a ransom demand or crypto-enabled fraud, ForensIQ unifies logs, memory captures, and on-chain data in one workspace, using AI to cross-check it against prior case files.";
+  "Connect evidence and intelligence to investigate your case. Unlock the full potential of your data with AI-driven capabilities designed for modern forensic challenges.";
 </script>
 
 <style module lang="scss">
