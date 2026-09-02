@@ -1,5 +1,5 @@
 <template>
-  <article :class="$style.card">
+  <article :class="[$style.card, icon && $style.iconCard]">
     <div v-if="$slots.illustration" :class="$style.illustration">
       <slot name="illustration" />
     </div>
@@ -8,13 +8,11 @@
       <div :class="$style.header">
         <img v-if="icon" :src="icon" alt="" width="20" height="20" />
         <span v-else :class="$style.marker" aria-hidden="true" />
-        <UiKitTypography :type="MAP.LABEL" as="p" :class="$style.label">{{
-          label
-        }}</UiKitTypography>
+        <UiKitTypography :type="MAP.P12M" as="p" :class="$style.label">{{ label }}</UiKitTypography>
       </div>
 
       <div :class="$style.body">
-        <UiKitTypography v-if="title" :type="MAP.H3" as="h3">{{ title }}</UiKitTypography>
+        <UiKitTypography v-if="title" :type="MAP.H4" as="h3">{{ title }}</UiKitTypography>
         <UiKitTypography :type="MAP.P2" as="p"><slot /></UiKitTypography>
       </div>
     </div>
@@ -51,6 +49,10 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.iconCard .text {
+  gap: var(--FQ-card-gap);
 }
 
 .header {

@@ -1,10 +1,14 @@
 <template>
-  <div :class="$style.page">
-    <Hero />
-    <Audiences />
-    <HowItWorks />
-    <CoreCapabilities />
-    <RequestDemo />
+  <div>
+    <Header />
+    <main :class="$style.shell">
+      <Hero />
+      <Audiences />
+      <HowItWorks />
+      <CoreCapabilities />
+      <RequestDemo />
+    </main>
+    <Footer />
   </div>
 </template>
 
@@ -40,13 +44,7 @@ useHead({
 </script>
 
 <style module lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: var(--FQ-gap-page-end);
-
-  > :nth-child(2) {
-    margin-top: var(--FQ-gap-hero);
-  }
+.shell {
+  @include shell;
 }
 </style>

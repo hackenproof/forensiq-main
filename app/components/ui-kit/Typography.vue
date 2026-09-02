@@ -1,5 +1,5 @@
 <template>
-  <component :is="as" :class="['typography', type]">
+  <component :is="as" :class="type">
     <slot />
   </component>
 </template>
@@ -15,53 +15,54 @@ defineProps({
 @use "sass:map";
 @use "sass:list";
 
-.typography {
-  color: var(--FQ-primary);
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-.FQ-Label {
+.FQ-Label,
+.FQ-P12M,
+.FQ-Button16 {
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 $fq-styles: (
   "Label": (
-    desktop: 12px 16px,
+    desktop: 12px 12px,
     weight: 400,
     spacing: 1.1px,
     transform: uppercase,
   ),
+  "P12M": (
+    desktop: 12px 12px,
+    weight: 500,
+    spacing: 1.1px,
+    transform: uppercase,
+  ),
+  "Button16": (
+    desktop: 16px 16px,
+    w760: 12px 12px,
+    weight: 500,
+    spacing: 1.1px,
+    transform: uppercase,
+  ),
   "H1": (
-    desktop: 64px 68px,
-    wide: 72px 76px,
-    tablet: 40px 48px,
-    phone-wide: 30px 40px,
+    desktop: 74px normal,
+    w1440: 64px 68px,
+    w960: 40px 48px,
     weight: 500,
   ),
   "H2": (
     desktop: 40px 48px,
-    wide: 44px 52px,
-    tablet: 30px 38px,
-    phone-wide: 24px 32px,
+    w760: 24px normal,
     weight: 500,
   ),
-  "H3": (
+  "H4": (
     desktop: 18px 25px,
     weight: 500,
   ),
   "P1": (
     desktop: 18px 30px,
+    w760: 16px 28px,
     weight: 400,
   ),
   "P2": (
     desktop: 16px 28px,
-    weight: 400,
-  ),
-  "P3": (
-    desktop: 18px 30px,
-    tablet: 16px 28px,
-    phone-wide: 14px 26px,
     weight: 400,
   ),
 );
@@ -83,12 +84,6 @@ $fq-styles: (
 
     @if map.has-key($style, transform) {
       text-transform: map.get($style, transform);
-    }
-
-    @if map.has-key($style, wide) {
-      @include wide {
-        @include size(map.get($style, wide));
-      }
     }
 
     @each $bp, $width in $breakpoints {
