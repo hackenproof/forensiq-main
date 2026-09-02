@@ -1,20 +1,19 @@
-import isEmail from "validator/lib/isEmail.js";
+import { validateDemoRequest } from "#shared/demo-request-validation";
 
 const fail = (statusCode) => createError({ statusCode, statusMessage: "Request failed." });
-const isValidTeamSize = (value) => /^\d+$/.test(value) && Number(value) > 0 && Number(value) <= 100;
-
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
   const body = await readBody(event);
   const field = (name) => String(body?.[name] ?? "").trim();
 
-  const fullName = field("fullName");
-  const workEmail = field("workEmail");
-  const organisation = field("organisation");
-  const teamSize = field("teamSize");
+  const values = {
+    fullName: field("fullName"),
+    workEmail: field("workEmail"),
+    organisation: field("organisation"),
+    teamSize: field("teamSize"),
+  };
 
-  if (!fullName || !organisation || !isEmail(workEmail) || !isValidTeamSize(teamSize))
-    throw fail(400);
+  if (Object.keys(validateDemoRequest(values)).length) throw fail(400);
 
   if (missingConfig(config).length) throw fail(503);
 
@@ -25,11 +24,11 @@ export default defineEventHandler(async (event) => {
       body: {
         emails: [
           {
-            email: workEmail,
+            email: values.workEmail,
             variables: {
-              Name: fullName,
-              Organisation: organisation,
-              "Team size": teamSize,
+              Name: values.fullName,
+              Organisation: values.organisation,
+              "Team size": values.teamSize,
             },
           },
         ],

@@ -1,9 +1,9 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
 
-  modules: ["@nuxtjs/google-fonts"],
+  modules: ["@nuxtjs/google-fonts", "@nuxt/image"],
 
-  css: ["~/assets/css/main.scss", "~/assets/css/reset.css", "~/assets/css/global.css"],
+  css: ["~/assets/css/main.scss", "~/assets/css/reset.css", "~/assets/css/global.scss"],
 
   runtimeConfig: {
     mailerApiUrl: "",

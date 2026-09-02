@@ -26,8 +26,7 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
 
 <style module lang="scss">
 .footer {
-  padding-inline: var(--FQ-chrome-px);
-  padding-block: var(--FQ-footer-py);
+  padding: 32px 108px;
 
   display: flex;
   align-items: center;
@@ -39,7 +38,12 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
     color: var(--FQ-on-dark);
   }
 
-  @include below(w760) {
+  @include below1440 {
+    padding-inline: 40px;
+  }
+
+  @include below760 {
+    padding: 24px 16px;
     flex-direction: column-reverse;
     gap: 24px;
     text-align: center;
@@ -52,13 +56,13 @@ const LINKS = [{ label: "LinkedIn", href: ROUTES.LINKEDIN }, { label: "Privacy a
 }
 
 .links li {
-  @include below(w760) {
+  @include below760 {
     padding-block: 6px;
   }
 }
 
 .copyright {
-  @include below(w760) {
+  @include below760 {
     text-wrap: balance;
   }
 }

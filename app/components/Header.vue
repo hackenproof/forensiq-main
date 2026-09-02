@@ -26,7 +26,7 @@ const BRAND = "FORENSIQ";
 
 <style module lang="scss">
 .header {
-  padding: 16px var(--FQ-chrome-px);
+  padding: 16px 108px;
 
   position: sticky;
   top: 0;
@@ -36,17 +36,25 @@ const BRAND = "FORENSIQ";
   justify-content: space-between;
   background-color: var(--FQ-primary);
   border-bottom: 1px solid var(--FQ-grey-85);
+
+  @include below1440 {
+    padding-inline: 40px;
+  }
+
+  @include below760 {
+    padding-inline: 16px;
+  }
 }
 
 .logo {
-  @include below(w760) {
+  @include below760 {
     width: auto;
     height: 24px;
   }
 }
 
 .header .cta {
-  @include below(w760) {
+  @include below760 {
     min-height: 32px;
     padding-block: 10px;
   }

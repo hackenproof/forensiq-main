@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <Header />
-    <main :class="$style.shell">
-      <section :class="$style.band">
-        <div :class="$style.copy">
-          <UiKitTypography :type="MAP.H1" as="h1" :class="$style.code">{{ code }}</UiKitTypography>
-          <SectionIntro :title="title" :lead="lead" narrow />
-          <UiKitButton large :to="ROUTES.ROOT" @click.prevent="clearError({ redirect: ROUTES.ROOT })">
-            Back to home
-          </UiKitButton>
+  <NuxtLayout name="default">
+    <section :class="$style.band">
+      <div :class="$style.copy">
+        <UiKitTypography :type="MAP.H1" as="h1" :class="$style.code">{{ code }}</UiKitTypography>
+        <div :class="$style.intro">
+          <UiKitTypography :type="MAP.H2" as="h2" :class="$style.introTitle">
+            {{ title }}
+          </UiKitTypography>
+          <UiKitTypography :type="MAP.P1" as="p" :class="$style.introLead">
+            {{ lead }}
+          </UiKitTypography>
         </div>
-      </section>
-    </main>
-    <Footer />
-  </div>
+        <UiKitButton large :to="ROUTES.ROOT" @click.prevent="clearError({ redirect: ROUTES.ROOT })">
+          Back to home
+        </UiKitButton>
+      </div>
+    </section>
+  </NuxtLayout>
 </template>
 
 <script setup>
@@ -35,27 +38,23 @@ useSeoMeta({ title: () => `${title.value} — ForensIQ`, robots: "noindex" });
 </script>
 
 <style module lang="scss">
-.shell {
-  @include shell;
-}
-
 .band {
-  @include band;
+  grid-column: viewport;
+  display: grid;
+  grid-template-columns: subgrid;
+  padding-block: 80px;
   align-content: center;
   justify-items: center;
-  min-height: calc(100vh - var(--FQ-header-h));
+  min-height: calc(100vh - 73px);
   background-color: var(--FQ-grey-91);
-
-  > * {
-    grid-column: content;
-  }
 }
 
 .copy {
+  grid-column: content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--FQ-gap-block);
+  gap: 48px;
 }
 
 .code {
@@ -64,6 +63,55 @@ useSeoMeta({ title: () => `${title.value} — ForensIQ`, robots: "noindex" });
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.introTitle {
+  max-width: 14em;
+  color: var(--FQ-grey-22);
+  text-wrap: balance;
+}
+
+.introLead {
+  max-width: 35em;
+  color: var(--FQ-text-muted);
+}
+
+@include below1440 {
+  .band {
+    padding-block: 64px;
+  }
+
+  .copy {
+    gap: 40px;
+  }
+}
+
+@include below960 {
+  .band {
+    padding-block: 32px;
+  }
+}
+
+@include below760 {
+  .band {
+    min-height: calc(100vh - 65px);
+  }
+
+  .copy {
+    gap: 24px;
+  }
+
+  .intro {
+    gap: 16px;
   }
 }
 </style>
